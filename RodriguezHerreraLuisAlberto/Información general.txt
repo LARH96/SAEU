@@ -1,0 +1,22 @@
+Nombre:
+Sistema de acondicionamiento físico y entrenamiento universitario
+
+Siglas: SAEU
+
+El sistema permite
+	-Realizar autoregistro
+	-Solicitar servicios de entrenamiento en una disciplina deportiva(despúes de 	autoregistrado)
+	-Ofrecer los servicios a través de un sitio web.
+
+Modelo de capas: MVC
+
+Sesiones: Inicio de sesión usuarios(Para que si se mete a un link de dentro de la app a menos que se esté:
+	-Logeado: sino solo va a redirigir al inicio de sesión
+	-Se tengan los permisos necesarios: sino solo va a redirigir a una página de "Usuario no autorizado" con un botón regresar que redirigue al inicio de sesión
+) //Objetos sessions se guardan en servidor
+
+Contraseña usuario guardada como hash
+
+-------------
+Sesiones:
+https://www.youtube.com/watch?v=S4PTyGHjQOM
