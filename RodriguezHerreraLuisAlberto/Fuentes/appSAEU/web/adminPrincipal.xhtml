@@ -34,26 +34,61 @@
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <h:commandLink class="dropdown-item"
                                                        value="Instructor"
-                                                       action="#{beanRouter.setPage('RegistroInstructores')}"></h:commandLink>
+                                                       action="#{beanRouter.setPage('adminManteRegistroInstructor')}"></h:commandLink>
                                         <h:commandLink class="dropdown-item"
                                                        value="Asignación deportista"
                                                        action="#{beanRouter.setPage('adminManteAsigDeportistaPorInstructor')}"/>
                                     </div>
                                 </li>
 
-                                <li class="nav-item active">
-                                    <!--<a class="nav-link" href="#">Deportista <span class="sr-only">(current)</span></a>-->
-                                    <h:commandLink class="nav-link"
-                                                   value="Opciones Deportista"
-                                                   action="#{beanRouter.setPage('sportPlayerPrincipal')}"/>
+                                <li class="nav-item dropdown active">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Opciones Deportista
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <h:commandLink class="dropdown-item"
+                                                       value="Registrar Pago"
+                                                       action="#{beanRouter.setPage('sportPlayerRegistroPago')}"></h:commandLink>
+                                        <h:commandLink class="dropdown-item"
+                                                       value="Registrar Cumplimiento Activ. Deportiva"
+                                                       action="#{beanRouter.setPage('sportPlayerRegistCumplimActivDeportPE')}"/>
+                                        <h:commandLink class="dropdown-item"
+                                                       value="Gráfica deportista de entrenamiento diario"
+                                                       action="#{beanRouter.setPage('reportDailyTrainingChart')}"/>
+                                    </div>
                                 </li>
-
-                                <li class="nav-item active">
-                                    <h:commandLink class="nav-link"
-                                                   value="Opciones Entrenador"
-                                                   action="#{beanRouter.setPage('trainerPrincipal')}"/>
+                                
+                                <li class="nav-item dropdown active">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Opciones Entrenador
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <h:commandLink class="dropdown-item"
+                                                       value="Consultar deportistas asignados"
+                                                       action="#{beanRouter.setPage('trainerConsultDeportistaAsignad')}"></h:commandLink>
+                                        <h:commandLink class="dropdown-item"
+                                                       value="Registrar plan de entrenamiento"
+                                                       action="#{beanRouter.setPage('trainerRegistraPlanEntrenamiento')}"/>
+                                        <h:commandLink class="dropdown-item"
+                                                       value="Cumplimiento actividad deportiva"
+                                                       action="#{beanRouter.setPage('trainerConsultCumplimActividadesDeport')}"/>
+                                    </div>
                                 </li>
-
+                                
+                                <li class="nav-item dropdown active">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Reportes
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <h:commandLink class="dropdown-item"
+                                                       value="Deportistas con menos cumplimiento de entrenamientos"
+                                                       action="#{beanRouter.setPage('reportDailyTrainingChart')}"></h:commandLink>
+                                        <h:commandLink class="dropdown-item"
+                                                       value="Grafica deportista de entrenamiento diario"
+                                                       action="#{beanRouter.setPage('trainerSeleccionaDeportistaParaGraficEntrenoDiario')}"/>
+                                    </div>
+                                </li>
+                                
                                 <li class="nav-item active">
                                     <a class="nav-link" href="index.xhtml">Salir</a>
                                 </li>
@@ -65,11 +100,16 @@
             </div>
             <div class="row justify-content-center align-items-center vh-100">
                 <div class="col-12 border border-secondary">
+
                     <h:panelGroup id="content">
                         <ui:include src="./#{beanRouter.page}.xhtml" />
+                        <ui:include src="adminVacio.xhtml" />
                     </h:panelGroup>
-                        
+
                 </div> <!-- End col-->
+
+
+
             </div> <!-- End row-->
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
