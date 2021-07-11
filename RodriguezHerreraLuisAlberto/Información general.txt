@@ -5,7 +5,7 @@ Siglas: SAEU
 
 El sistema permite
 	-Realizar autoregistro
-	-Solicitar servicios de entrenamiento en una disciplina deportiva(despúes de 	autoregistrado)
+	-Solicitar servicios de entrenamiento en una disciplina deportiva(despúes de autoregistrado)
 	-Ofrecer los servicios a través de un sitio web.
 
 Modelo de capas: MVC
@@ -20,3 +20,54 @@ Contraseña usuario guardada como hash
 -------------
 Sesiones:
 https://www.youtube.com/watch?v=S4PTyGHjQOM
+
+
+-------------Pantallas:
+
+Index:
+OK	-Selecciona tipo usuario
+
+Seguridad:
+	-Login deportista //btn Volver a index
+	-Login entrenador //btn Volver a index
+	-Login admin	  //btn Volver a index
+	-Cambiar contraseña(opcion del menú principal) //Se debe validar al cambiar la contraseña que no sea igual a las últimas 3 utilizadas.
+	-Recuperar contraseña //Envia a pantalla "Cambiar contraseña"
+	-Crear cuenta
+	-Agregar usuarios por administrador?												//EXTRA
+	-Pantalla de "Usuario no autorizado"
+NOTA: Contraseña menos 10 caracteres, no permitir caracteres especiales y debe incluir mayúsculas, minúsculas y números.
+NOTA: Debe manejar sesiones para que no deje entrar a links internos sin autorizacion
+{
+	-Logeado: sino solo va a redirigir al inicio de sesión
+	-Se tengan los permisos necesarios: sino solo va a redirigir a una página de "Usuario no autorizado" con un botón regresar que redirigue al inicio de sesión
+}
+
+Pantalla principal:
+	-Principal deportista
+	-Principal entrenador
+	-Principal admin
+
+Deportista:
+	-Autoregistro(datos personales, objetivo y envia correo de confirmacion) //no es Mantenimiento 					//IMPORTANTE
+	-Registra cumplimiento de actividades deportivas indicadas en plan de entrenamiento && muestra observaciones de			//IMPORTANTE
+	cumplimientos de actividades anteriores
+	-Registro de pago														//IMPORTANTE
+
+Entrenador:
+	-Consultar deportistas asignados
+	-Registra plan de entrenamiento y envia correo a cliente con él //al selecionar un deportista de la pantalla anterior		//IMPORTANTE
+	-Consulta cumplimiento de actividades deportivas en plan de entrenamiento y agrega observaciones				//IMPORTANTE
+	-Selecciona deportista para generar gráfica entrenamiento diario
+	-Reporte: Deportistas con menos cumplimiento de entrenamientos solicitados							//IMPORTANTE
+
+Deportista&Entrenador:
+	-Reporte: Grafica de entrenamiento diario(Entrenador usa pantalla "Selecciona deportista para generar gráfica 			//IMPORTANTE
+	entrenamiento diario", deportista solo le sale la de él)											
+
+Administrador:
+	-Todas las anteriores
+	-Mantenimiento registra instructor por disciplina deportiva(pueden ser varias)  						//IMPORTANTE
+	-Mantenimiento asignación de deportista por instructor(Solo dejan asignar a los q ya pagaron)                       		//IMPORTANTE
+
+NOTA: Mantenimientos deben tener Nuevo, Guardar, Buscar, Editar, Ayuda y Salir
