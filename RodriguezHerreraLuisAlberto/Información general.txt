@@ -60,13 +60,14 @@ Deportista:
 Entrenador:
 	-Consultar deportistas asignados
 	-Registra plan de entrenamiento y envia correo a cliente con él //al selecionar un deportista de la pantalla anterior		//IMPORTANTE
+		//Ojo Mensaje de “Registro almacenado correctamente”.
 	-Consulta cumplimiento de actividades deportivas en plan de entrenamiento y agrega observaciones				//IMPORTANTE
 	-Selecciona deportista para generar gráfica entrenamiento diario
 	-Reporte: Deportistas con menos cumplimiento de entrenamientos solicitados							//IMPORTANTE
 
 Deportista&Entrenador:
 	-Reporte: Grafica de entrenamiento diario(Entrenador usa pantalla "Selecciona deportista para generar gráfica 			//IMPORTANTE
-	entrenamiento diario", deportista solo le sale la de él)											
+	entrenamiento diario" y así escoger de cual quiere generarla, deportista solo le sale la de él)											
 
 Administrador:
 	-Todas las anteriores
