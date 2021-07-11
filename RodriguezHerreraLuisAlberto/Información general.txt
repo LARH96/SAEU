@@ -34,6 +34,7 @@ OK	-Login admin	  //btn Volver a index
 OK	-Recuperar contraseña //Envia correo que tiene un boton que envia a pantalla "Cambiar contraseña" de ese usuario
 OK	-Pantalla de "Usuario no autorizado"
 OK	-Cambiar contraseña(opcion del menú principal) //Ojo Mensaje de “Registro almacenado correctamente”.
+	NOTA: Redirigue a Index para q calse cuando se quiere cambiar xq se quiere y cuando es asignación de contraseña por primera vez
 	NOTA: Se debe validar al cambiar la contraseña que no sea igual a las últimas 3 utilizadas.
 	NOTA: Contraseña debe ser al menos 10 caracteres, no permitir caracteres especiales y debe incluir mayúsculas, minúsculas y números.
 	NOTA: Debe manejar sesiones para que no deje entrar a links internos sin autorizacion
@@ -56,6 +57,7 @@ Deportista:
 	-Registro de pago //Ojo Mensaje de “Registro almacenado correctamente”.								//IMPORTANTE
 	-Registra cumplimiento de actividades deportivas indicadas en plan de entrenamiento && muestra observaciones de			//IMPORTANTE
 	cumplimientos de actividades anteriores//Ojo Mensaje de “Registro almacenado correctamente”.
+		NOTA: Inactivo hasta q se pague
 	-Extra: Autoregistro en Principal deportista y q tenga para editar y guardar
 
 Entrenador:
@@ -65,6 +67,7 @@ Entrenador:
 	-Consulta cumplimiento de actividades deportivas en plan de entrenamiento y agrega observaciones				//IMPORTANTE
 	-Selecciona deportista para generar gráfica entrenamiento diario
 	-Reporte: Deportistas con menos cumplimiento de entrenamientos solicitados							//IMPORTANTE
+	-Selecciona tipo reporte
 
 Deportista&Entrenador:
 	-Reporte: Grafica de entrenamiento diario(Entrenador usa pantalla "Selecciona deportista para generar gráfica 			//IMPORTANTE
@@ -78,3 +81,8 @@ Administrador:
 
 NOTA: Mantenimientos deben tener Nuevo, Guardar, Buscar, Editar, Ayuda y Salir
 NOTA: Cuando sea guardado un registro se debe desplegar un mensaje de “Registro almacenado correctamente”.
+NOTA: Proceso deportista:
+	Crea su cuenta y "Autoregistro" le envia un correo de confirmación
+	Cuando administrador le asigna entrenador le envia correo indicando el nombre del entrenador y un boton q al tocarlo lo envia a "Cambiar contraseña"
+	Se "Cambiar contraseña" y redirigue "Index"
+	Al logearse "Registrar Cumplimiento Activ. Deportiva" aparece inactivo hasta q se pague en "Registrar Pago".
