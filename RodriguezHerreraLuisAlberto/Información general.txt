@@ -47,7 +47,7 @@ OK	-Cambiar contraseña(opcion del menú principal) //Ojo Mensaje de “Registro
 
 Pantalla principal:
 OK	-Principal deportista
-	-Principal entrenador
+OK	-Principal entrenador
 	-Principal admin
 
 Deportista:
@@ -67,7 +67,7 @@ Entrenador:
 	-Consulta cumplimiento de actividades deportivas en plan de entrenamiento y agrega observaciones				//IMPORTANTE
 	-Selecciona deportista para generar gráfica entrenamiento diario
 	-Reporte: Deportistas con menos cumplimiento de entrenamientos solicitados							//IMPORTANTE
-	-Selecciona tipo reporte
+OK	-Selecciona tipo reporte
 
 Deportista&Entrenador:
 	-Reporte: Grafica de entrenamiento diario(Entrenador usa pantalla "Selecciona deportista para generar gráfica 			//IMPORTANTE
