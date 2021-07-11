@@ -28,15 +28,16 @@ Index:
 OK	-Selecciona tipo usuario
 
 Seguridad:
-	-Login deportista //btn Volver a index
-	-Login entrenador //btn Volver a index
-	-Login admin	  //btn Volver a index
-	-Cambiar contraseña(opcion del menú principal) //Se debe validar al cambiar la contraseña que no sea igual a las últimas 3 utilizadas.
-	-Recuperar contraseña //Envia a pantalla "Cambiar contraseña"
+OK	-Login deportista //btn Volver a index
+OK	-Login entrenador //btn Volver a index
+OK	-Login admin	  //btn Volver a index
+OK	-Cambiar contraseña(opcion del menú principal) //Se debe validar al cambiar la contraseña que no sea igual a las últimas 3 utilizadas.
+						       //Password confirmation doesn't match the password
+	-Recuperar contraseña //Envia correo que tiene un boton que envia a pantalla "Cambiar contraseña"
 	-Crear cuenta
 	-Agregar usuarios por administrador?												//EXTRA
 	-Pantalla de "Usuario no autorizado"
-NOTA: Contraseña menos 10 caracteres, no permitir caracteres especiales y debe incluir mayúsculas, minúsculas y números.
+NOTA: Contraseña debe ser al menos 10 caracteres, no permitir caracteres especiales y debe incluir mayúsculas, minúsculas y números.
 NOTA: Debe manejar sesiones para que no deje entrar a links internos sin autorizacion
 {
 	-Logeado: sino solo va a redirigir al inicio de sesión
