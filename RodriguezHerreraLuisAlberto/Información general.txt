@@ -45,7 +45,7 @@ OK	-Cambiar contraseña(opcion del menú principal) //Ojo Mensaje de “Registro
 	
 
 Pantalla principal:
-	-Principal deportista
+OK	-Principal deportista
 	-Principal entrenador
 	-Principal admin
 
@@ -56,6 +56,7 @@ Deportista:
 	-Registro de pago //Ojo Mensaje de “Registro almacenado correctamente”.								//IMPORTANTE
 	-Registra cumplimiento de actividades deportivas indicadas en plan de entrenamiento && muestra observaciones de			//IMPORTANTE
 	cumplimientos de actividades anteriores//Ojo Mensaje de “Registro almacenado correctamente”.
+	-Extra: Autoregistro en Principal deportista y q tenga para editar y guardar
 
 Entrenador:
 	-Consultar deportistas asignados
