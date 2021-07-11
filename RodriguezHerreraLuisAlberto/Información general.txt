@@ -31,18 +31,18 @@ Seguridad:
 OK	-Login deportista //btn Volver a index
 OK	-Login entrenador //btn Volver a index
 OK	-Login admin	  //btn Volver a index
-OK	-Cambiar contraseña(opcion del menú principal) //Se debe validar al cambiar la contraseña que no sea igual a las últimas 3 utilizadas.
-						       //Password confirmation doesn't match the password
-OK	-Recuperar contraseña //Envia correo que tiene un boton que envia a pantalla "Cambiar contraseña"
-	-Crear cuenta
-	-Agregar usuarios por administrador?												//EXTRA
+OK	-Recuperar contraseña //Envia correo que tiene un boton que envia a pantalla "Cambiar contraseña" de ese usuario
 OK	-Pantalla de "Usuario no autorizado"
+OK	-Cambiar contraseña(opcion del menú principal) //Ojo Mensaje de “Registro almacenado correctamente”.
+	NOTA: Se debe validar al cambiar la contraseña que no sea igual a las últimas 3 utilizadas.
 	NOTA: Contraseña debe ser al menos 10 caracteres, no permitir caracteres especiales y debe incluir mayúsculas, minúsculas y números.
 	NOTA: Debe manejar sesiones para que no deje entrar a links internos sin autorizacion
 	{
-	-Logeado: sino solo va a redirigir al inicio de sesión
-	-Se tengan los permisos necesarios: sino solo va a redirigir a una página de "Usuario no autorizado" con un botón regresar que redirigue al inicio de sesión
+		-Logeado: sino solo va a redirigir al inicio de sesión
+		-Se tengan los permisos necesarios: sino solo va a redirigir a una página de "Usuario no autorizado" con un botón regresar que redirigue al inicio de 			sesión
 	}
+	-Agregar usuarios por administrador?												//EXTRA
+	
 
 Pantalla principal:
 	-Principal deportista
@@ -51,9 +51,11 @@ Pantalla principal:
 
 Deportista:
 	-Autoregistro(datos personales, objetivo y envia correo de confirmacion) //no es Mantenimiento 					//IMPORTANTE
+		//Ojo Mensaje de “Registro almacenado correctamente”.
+		//Una vez realizado el autoregistro el sistema debe enviar un correo electrónico al cliente indicándole que se ha realizado su registro y tan 				pronto como sea asignado un instructor le esta llegando un correo con la comunicación.
+	-Registro de pago //Ojo Mensaje de “Registro almacenado correctamente”.								//IMPORTANTE
 	-Registra cumplimiento de actividades deportivas indicadas en plan de entrenamiento && muestra observaciones de			//IMPORTANTE
-	cumplimientos de actividades anteriores
-	-Registro de pago														//IMPORTANTE
+	cumplimientos de actividades anteriores//Ojo Mensaje de “Registro almacenado correctamente”.
 
 Entrenador:
 	-Consultar deportistas asignados
@@ -70,5 +72,7 @@ Administrador:
 	-Todas las anteriores
 	-Mantenimiento registra instructor por disciplina deportiva(pueden ser varias)  						//IMPORTANTE
 	-Mantenimiento asignación de deportista por instructor(Solo dejan asignar a los q ya pagaron)                       		//IMPORTANTE
+		//envia correo a cliente q lo redirigue a pantalla "Cambiar contraseña" para q ingrese su contraseña por primera vez
 
 NOTA: Mantenimientos deben tener Nuevo, Guardar, Buscar, Editar, Ayuda y Salir
+NOTA: Cuando sea guardado un registro se debe desplegar un mensaje de “Registro almacenado correctamente”.
