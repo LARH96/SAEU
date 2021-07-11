@@ -42,13 +42,14 @@ OK	-Cambiar contraseña(opcion del menú principal) //Ojo Mensaje de “Registro
 		-Logeado: sino solo va a redirigir al inicio de sesión
 		-Se tengan los permisos necesarios: sino solo va a redirigir a una página de "Usuario no autorizado" con un botón regresar que redirigue al inicio de 			sesión
 	}
-	-Agregar usuarios por administrador?												//EXTRA
+	-Agregar usuarios por administrador?(mante deportistas y admin)									//EXTRA
 	
 
 Pantalla principal:
 OK	-Principal deportista
 OK	-Principal entrenador
 	-Principal admin
+	-admin vacio
 
 Deportista:
 	-Autoregistro(datos personales, objetivo y envia correo de confirmacion) //no es Mantenimiento 					//IMPORTANTE

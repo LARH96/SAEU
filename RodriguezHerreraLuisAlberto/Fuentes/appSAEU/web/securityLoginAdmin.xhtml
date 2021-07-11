@@ -61,7 +61,10 @@
                             <div class="text-center text-white">
                                 <h:commandButton value="Volver" action="index.xhtml" 
                                                  class="btn btn-danger m-2"></h:commandButton>
-                                <h:commandButton value="Ingresar" action="adminPrincipal.xhtml" class="btn btn-success m-2"></h:commandButton>
+                                <h:commandButton value="Ingresar"
+                                                 actionListener="#{beanRouter.setPage('adminVacio')}"
+                                                 action="adminPrincipal.xhtml"
+                                                 class="btn btn-success m-2"></h:commandButton>
                             </div>
                         </div>
                     </h:form>
