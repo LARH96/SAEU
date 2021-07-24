@@ -1,12 +1,131 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Autoregistro Deportista</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"></link>
+        <link rel="stylesheet" href="estilos.css"></link>
+        <link rel="icon" type="image/png" href="./assets/img/favicon.PNG"></link>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <div class="container-fluid bg-secondary">
+            <div class="row justify-content-center align-items-center vh-100">
+                <div class="col-9 border border-secondary m-2">
+
+                    <h:form>
+                        <div class="row justify-content-center align-items-center bg-dark border border-white">
+                            <div class="text-center text-white">
+                                <div class="row">
+                                    <h6 class="m-2">Autoregistro Atleta</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ingresa datos-->
+                        <div class="row bg-light">
+                            <div class="col-md-10 ml-2">
+                                <div class="row">
+                                    <h:outputLabel value="Tipo Identificación:"></h:outputLabel>
+                                    <h:selectOneMenu label="tipoIdentificacion" value="#{beanTipoIdentificacion.id}"
+                                                     onchange="submit()" id="tipoIdentificacion"> 		    
+                                        <f:selectItems value="#{beanTipoIdentificacion.listaTipoIdentificacion}"/>
+                                    </h:selectOneMenu>
+                                    <h:outputLabel value="Identificación:"></h:outputLabel>
+                                    <h:inputText></h:inputText>
+                                </div>
+                                <div class="row">
+                                    <h:outputLabel value="Nombre:"></h:outputLabel>
+                                    <h:inputText></h:inputText>
+                                    <h:outputLabel value="Apellido 1:"></h:outputLabel>
+                                    <h:inputText></h:inputText>
+                                    <h:outputLabel value="Apellido 2:"></h:outputLabel>
+                                    <h:inputText></h:inputText>
+                                </div>
+                                <div class="row justify-content-center align-items-center">
+                                    <h:outputLabel value="Dirección:"></h:outputLabel>
+                                </div>
+                                <div class="row">
+                                    <h:outputLabel value="Provincia:"></h:outputLabel>
+                                    <h:selectOneMenu>
+                                        <f:selectItems/>			    
+                                    </h:selectOneMenu>
+                                    <h:outputLabel value="Cantón:"></h:outputLabel>
+                                    <h:selectOneMenu>
+                                        <f:selectItems/>			    
+                                    </h:selectOneMenu>
+                                    <h:outputLabel value="Distrito:"></h:outputLabel>
+                                    <h:selectOneMenu>
+                                        <f:selectItems/>			    
+                                    </h:selectOneMenu>
+                                    <h:outputLabel value="Barrio:"></h:outputLabel>
+                                    <h:selectOneMenu>
+                                        <f:selectItems/>			    
+                                    </h:selectOneMenu>
+                                    <h:outputLabel value="Otras señas:"></h:outputLabel>
+                                    <h:inputText></h:inputText>
+                                </div>
+                                <div class="row">
+                                    <h:outputLabel value="Teléfonos:"></h:outputLabel>
+                                    <h:inputText></h:inputText>
+                                    <h:commandButton value="Agregar"></h:commandButton>
+                                </div>
+                                <div class="row">
+                                    <h:outputLabel value="Correo Electrónico:"></h:outputLabel>
+                                    <h:inputText></h:inputText>
+                                </div>
+                                <div class="row">
+                                    <h:outputLabel value="Disciplina Deportiva:"></h:outputLabel>
+                                    <h:inputText></h:inputText>
+                                </div>
+                                <div class="row">
+                                    <h:outputLabel value="Peso:"></h:outputLabel>
+                                    <h:inputText></h:inputText>
+                                    <h:outputLabel value="Talla:"></h:outputLabel>
+                                    <h:inputText></h:inputText>
+                                    <h:outputLabel value="Altura:"></h:outputLabel>
+                                    <h:inputText></h:inputText>
+                                </div>
+                                <div>
+                                    <h:outputLabel value="IMC:"></h:outputLabel>
+                                    <br></br>
+                                    <h:outputLabel value="Grado de obesidad:"></h:outputLabel>
+                                </div>
+                                <div class="row">
+                                    <h:outputLabel value="Objetivo del deporte 1:"></h:outputLabel>
+                                    <h:inputText size="100"></h:inputText>
+                                </div>
+                                <div class="row">
+                                    <h:outputLabel value="Objetivo del deporte 2(Opcional):"></h:outputLabel>
+                                    <h:inputText size="100"></h:inputText>
+                                </div>
+                                <div class="row">
+                                    <h:outputLabel value="Objetivo del deporte 3(Opcional):"></h:outputLabel>
+                                    <h:inputText size="100"></h:inputText>
+                                </div>
+                                <br></br>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center align-items-center bg-dark border border-white">
+                            <div class="text-center text-white">
+                                <div class="row">
+                                    <h:commandButton value="Aceptar" class="btn btn-primary m-2"
+                                                     onclick="alert('Le hemos enviado un correo electrónico,\n\sino aparece en la bandeja de entrada le recomentamos revisar tambien la carpeta de spam')"
+                                                     ></h:commandButton>
+                                    <h:commandButton value="Cancelar" class="btn btn-danger m-2"
+                                                     action="pantallaPrincipal.xhtml"></h:commandButton>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
     </h:body>
 </html>
 

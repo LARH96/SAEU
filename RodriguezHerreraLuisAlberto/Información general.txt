@@ -16,6 +16,7 @@ Sesiones: Inicio de sesión usuarios(Para que si se mete a un link de dentro de 
 ) //Objetos sessions se guardan en servidor
 
 Contraseña usuario guardada como hash
+	-Extra: Hash usando encryptación Bcrypt con SALT y Rondas
 
 -------------
 Sesiones:
@@ -25,41 +26,42 @@ https://www.youtube.com/watch?v=S4PTyGHjQOM
 -------------Pantallas:
 
 Index:
-OK	-Selecciona tipo usuario
+OK	-Selecciona tipo usuario													//IMPORTANTE
 
 Seguridad:
-OK	-Login deportista //btn Volver a index
-OK	-Login entrenador //btn Volver a index
-OK	-Login admin	  //btn Volver a index
-OK	-Recuperar contraseña //Envia correo que tiene un boton que envia a pantalla "Cambiar contraseña" de ese usuario
-OK	-Pantalla de "Usuario no autorizado"
-OK	-Cambiar contraseña(opcion del menú principal) //Ojo Mensaje de “Registro almacenado correctamente”.
+OK	-Login deportista //btn Volver a index												//IMPORTANTE
+OK	-Login entrenador //btn Volver a index												//IMPORTANTE
+OK	-Login admin	  //btn Volver a index												//IMPORTANTE
+OK	-Recuperar contraseña //Envia correo que tiene un boton que envia a pantalla "Cambiar contraseña" de ese usuario		//IMPORTANTE
+OK	-Pantalla de "Usuario no autorizado"												//IMPORTANTE
+OK	-Cambiar contraseña(opcion del menú principal) //Ojo Mensaje de “Registro almacenado correctamente”.				//IMPORTANTE
+	-Requerimiento contraseña:													//IMPORTANTE
 	NOTA: Redirigue a Index para q calse cuando se quiere cambiar xq se quiere y cuando es asignación de contraseña por primera vez
 	NOTA: Se debe validar al cambiar la contraseña que no sea igual a las últimas 3 utilizadas.
 	NOTA: Contraseña debe ser al menos 10 caracteres, no permitir caracteres especiales y debe incluir mayúsculas, minúsculas y números.
-	NOTA: Debe manejar sesiones para que no deje entrar a links internos sin autorizacion
+	
+	-Requerimiento: Debe manejar sesiones para que no deje entrar a links internos sin autorizacion					//IMPORTANTE
 	{
 		-Logeado: sino solo va a redirigir al inicio de sesión
 		-Se tengan los permisos necesarios: sino solo va a redirigir a una página de "Usuario no autorizado" con un botón regresar que redirigue al inicio de 			sesión
 	}
-	-Agregar usuarios por administrador?(mante deportistas y admin)									//EXTRA
+	-Eliminador usuarios por administrador y agregar admins?(mante deportistas y admin)						//EXTRA
 	
 
 Pantalla principal:
-OK	-Principal deportista
+OK	-Principal deportista //es un SPA
 OK	-Principal entrenador
-	-Principal admin
-	-admin vacio
+OK	-Principal admin //bug si solo dejo un <ui:include> no carga dropdowns, entonces dejé dos <ui:include> pero queda pag muy larga
+OK	-admin vacio
 
 Deportista:
-	-Autoregistro(datos personales, objetivo y envia correo de confirmacion) //no es Mantenimiento 					//IMPORTANTE
+	-Autoregistro(datos personales, objetivo y envia correo de confirmacion) //no es Mantenimiento(es la  pantalla crear una cuenta) //IMPORTANTE
 		//Ojo Mensaje de “Registro almacenado correctamente”.
 		//Una vez realizado el autoregistro el sistema debe enviar un correo electrónico al cliente indicándole que se ha realizado su registro y tan 				pronto como sea asignado un instructor le esta llegando un correo con la comunicación.
-	-Registro de pago //Ojo Mensaje de “Registro almacenado correctamente”.								//IMPORTANTE
 	-Registra cumplimiento de actividades deportivas indicadas en plan de entrenamiento && muestra observaciones de			//IMPORTANTE
 	cumplimientos de actividades anteriores//Ojo Mensaje de “Registro almacenado correctamente”.
 		NOTA: Inactivo hasta q se pague
-	-Extra: Autoregistro en Principal deportista y q tenga para editar y guardar
+	-Autoregistro en Principal deportista y q tenga para editar y guardar								//EXTRA
 
 Entrenador:
 	-Consultar deportistas asignados
@@ -75,10 +77,14 @@ Deportista&Entrenador:
 	entrenamiento diario" y así escoger de cual quiere generarla, deportista solo le sale la de él)											
 
 Administrador:
-	-Todas las anteriores
-	-Mantenimiento registra instructor por disciplina deportiva(pueden ser varias)  						//IMPORTANTE
+	-Todas las anteriores //*TODO: pensar diseño de como le aparece a admin xq el menú NO lo hice q eran todas pero de consulta*
+50%	-Mantenimiento registra instructor por disciplina deportiva(pueden ser varias)  						//IMPORTANTE
+		//Nuevo, Guardar, Buscar, Editar, Ayuda y Salir & “Registro almacenado correctamente”
 	-Mantenimiento asignación de deportista por instructor(Solo dejan asignar a los q ya pagaron)                       		//IMPORTANTE
+		//Nuevo, Guardar, Buscar, Editar, Ayuda y Salir & “Registro almacenado correctamente”
 		//envia correo a cliente q lo redirigue a pantalla "Cambiar contraseña" para q ingrese su contraseña por primera vez
+	-Registro de pago deportista 													//IMPORTANTE
+		//Genera lista de los deportistas y dice si ya pagó o no, ademas se puede cambiar estado(Ojo Mensaje de “Registro almacenado correctamente”)
 
 NOTA: Mantenimientos deben tener Nuevo, Guardar, Buscar, Editar, Ayuda y Salir
 NOTA: Cuando sea guardado un registro se debe desplegar un mensaje de “Registro almacenado correctamente”.
