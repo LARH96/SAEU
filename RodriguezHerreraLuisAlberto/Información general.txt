@@ -22,6 +22,8 @@ Contraseña usuario guardada como hash
 Sesiones:
 https://www.youtube.com/watch?v=S4PTyGHjQOM
 
+-------------General
+	-ventanas deben tener ayuda													//IMPORTANTE
 
 -------------Pantallas:
 

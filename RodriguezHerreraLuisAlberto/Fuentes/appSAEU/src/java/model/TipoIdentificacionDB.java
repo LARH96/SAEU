@@ -5,8 +5,8 @@
  */
 package model;
 
-import DAO.AccesoDatos;
-import DAO.SNMPExceptions;
+import dao.AccesoDatos;
+import dao.SNMPExceptions;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -22,3 +22,7 @@ and open the template in the editor.
     height: 150px;
     width: 160px
 }
+
+.campoRequerido{
+    color: red;
+}

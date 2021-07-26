@@ -5,7 +5,7 @@
  */
 package controller;
 
-import DAO.SNMPExceptions;
+import dao.SNMPExceptions;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -34,11 +34,7 @@ public class beanTipoIdentificacion implements Serializable {
     private Date fechaEdita;
     private LinkedList<SelectItem> listaTipoIdentificacion = new LinkedList();
 
-    /**
-     * Creates a new instance of beanTipoIdentificacion
-     */
-    public beanTipoIdentificacion() throws SNMPExceptions, SQLException {
-        getListaTipoIdentificacion();
+    public beanTipoIdentificacion() {
     }
 
     public int getId() {

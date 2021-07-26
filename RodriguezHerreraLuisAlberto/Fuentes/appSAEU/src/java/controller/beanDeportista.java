@@ -1,0 +1,366 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller;
+
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.validator.ValidatorException;
+import model.Deportista;
+import model.Telefono;
+import utilitario.ValidadorFormatos;
+import javax.faces.context.FacesContext;
+
+/**
+ *
+ * @author LARH96
+ */
+@Named(value = "beanDeportista")
+@SessionScoped
+public class beanDeportista implements Serializable {
+
+    private int id;
+    private int tipoIdentificacion;
+    private String nombre;
+    private String apellido1;
+    private String apellido2;
+    private String correoElectronico;
+    private int DisciplinaDeportiva;
+    private int log_estado;
+    private int codUsuario_Registra;
+    private Date fechaRegistra;
+    private int codUsuario_Edita;
+    private Date fechaEdita;
+    private float peso;
+    private String talla;
+    private float altura;
+    private String objetivoDeporte1;
+    private String objetivoDeporte2;
+    private String objetivoDeporte3;
+    private boolean pago;
+    private List<Telefono> listaTelefono = new ArrayList<Telefono>();
+
+    //extra
+    private int telefono;
+    private String listaTel = " Teléfonos agregados: ";
+    private float imc;
+    private String gradoObesidad;
+
+    /**
+     * Creates a new instance of beanDeportista
+     */
+    public beanDeportista() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getTipoIdentificacion() {
+        return tipoIdentificacion;
+    }
+
+    public void setTipoIdentificacion(int tipoIdentificacion) {
+        this.tipoIdentificacion = tipoIdentificacion;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido1() {
+        return apellido1;
+    }
+
+    public void setApellido1(String apellido1) {
+        this.apellido1 = apellido1;
+    }
+
+    public String getApellido2() {
+        return apellido2;
+    }
+
+    public void setApellido2(String apellido2) {
+        this.apellido2 = apellido2;
+    }
+
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+
+    public int getDisciplinaDeportiva() {
+        return DisciplinaDeportiva;
+    }
+
+    public void setDisciplinaDeportiva(int DisciplinaDeportiva) {
+        this.DisciplinaDeportiva = DisciplinaDeportiva;
+    }
+
+    public int getLog_estado() {
+        return log_estado;
+    }
+
+    public void setLog_estado(int log_estado) {
+        this.log_estado = log_estado;
+    }
+
+    public int getCodUsuario_Registra() {
+        return codUsuario_Registra;
+    }
+
+    public void setCodUsuario_Registra(int codUsuario_Registra) {
+        this.codUsuario_Registra = codUsuario_Registra;
+    }
+
+    public Date getFechaRegistra() {
+        return fechaRegistra;
+    }
+
+    public void setFechaRegistra(Date fechaRegistra) {
+        this.fechaRegistra = fechaRegistra;
+    }
+
+    public int getCodUsuario_Edita() {
+        return codUsuario_Edita;
+    }
+
+    public void setCodUsuario_Edita(int codUsuario_Edita) {
+        this.codUsuario_Edita = codUsuario_Edita;
+    }
+
+    public Date getFechaEdita() {
+        return fechaEdita;
+    }
+
+    public void setFechaEdita(Date fechaEdita) {
+        this.fechaEdita = fechaEdita;
+    }
+
+    public float getPeso() {
+        return peso;
+    }
+
+    public void setPeso(float peso) {
+        this.peso = peso;
+    }
+
+    public String getTalla() {
+        return talla;
+    }
+
+    public void setTalla(String talla) {
+        this.talla = talla;
+    }
+
+    public float getAltura() {
+        return altura;
+    }
+
+    public void setAltura(float altura) {
+        this.altura = altura;
+    }
+
+    public String getObjetivoDeporte1() {
+        return objetivoDeporte1;
+    }
+
+    public void setObjetivoDeporte1(String objetivoDeporte1) {
+        this.objetivoDeporte1 = objetivoDeporte1;
+    }
+
+    public String getObjetivoDeporte2() {
+        return objetivoDeporte2;
+    }
+
+    public void setObjetivoDeporte2(String objetivoDeporte2) {
+        this.objetivoDeporte2 = objetivoDeporte2;
+    }
+
+    public String getObjetivoDeporte3() {
+        return objetivoDeporte3;
+    }
+
+    public void setObjetivoDeporte3(String objetivoDeporte3) {
+        this.objetivoDeporte3 = objetivoDeporte3;
+    }
+
+    public boolean isPago() {
+        return pago;
+    }
+
+    public void setPago(boolean pago) {
+        this.pago = pago;
+    }
+
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
+    }
+
+    public List<Telefono> getListaTelefono() {
+        return listaTelefono;
+    }
+
+    public void setListaTelefono(List<Telefono> listaTelefono) {
+        this.listaTelefono = listaTelefono;
+    }
+
+    public String getListaTel() {
+        return listaTel;
+    }
+
+    public void setListaTel(String listaTel) {
+        this.listaTel = listaTel;
+    }
+
+    public float getImc() {
+        return imc;
+    }
+
+    public void setImc(float imc) {
+        this.imc = imc;
+    }
+
+    public String getGradoObesidad() {
+        return gradoObesidad;
+    }
+
+    public void setGradoObesidad(String gradoObesidad) {
+        this.gradoObesidad = gradoObesidad;
+    }
+
+    public void asignaIMCYGradoObesidad() {
+        calculaIMC();
+        calculaGradoObesidad();
+    }
+
+    public void calculaIMC() {
+        Deportista oDeportista = new Deportista();
+        this.imc = oDeportista.calculaIMC(this.peso, this.altura);
+    }
+
+    public void calculaGradoObesidad() {
+        Deportista oDeportista = new Deportista();
+        this.gradoObesidad = oDeportista.calculaGradoObesidad(this.imc);
+    }
+
+    public void agregaTelefono() {
+        java.util.Date date = new java.util.Date();
+        java.sql.Date date2 = new java.sql.Date(date.getTime());
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        String fechaRegistra = df.format(date);
+        String fechaEdita = df.format(date);
+        listaTelefono.add(new Telefono(this.id, this.telefono, 1, this.id, date2, 0, date2));
+        listaTel += this.telefono + ",";
+        this.telefono = 0;
+    }
+
+    public void validaProvincia(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException {
+        String valor = value.toString();
+        if (valor.equals("0.0")) {
+            String mensaje = "Provincia no especificada";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        }
+    }
+
+    public void validaCanton(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException {
+        String valor = value.toString();
+        if (valor.equals("0.0")) {
+            String mensaje = "Cantón no especificado";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        }
+    }
+
+    public void validaDistrito(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException {
+        String valor = value.toString();
+        if (valor.equals("0.0")) {
+            String mensaje = "Distrito no especificado";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        }
+    }
+
+    public void validaBarrio(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException {
+        String valor = value.toString();
+        if (valor.equals("0.0")) {
+            String mensaje = "Barrio no especificado";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        }
+    }
+
+    public void validaDisciplinaDeportiva(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException {
+        String valor = value.toString();
+        if (valor.equals("0")) {
+            String mensaje = "Disciplina deportiva no especificada";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        }
+    }
+    
+    public void validaPeso(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException {
+        String valor = value.toString();
+        if (valor.equals("0.0")) {
+            String mensaje = "Peso no válido";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        }
+    }
+
+    public void validaTalla(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException {
+        String valor = value.toString();
+        if (valor.equals("S")
+                || valor.equals("M")
+                || valor.equals("L")
+                || valor.equals("XL")
+                || valor.equals("XXL")) {
+        } else {
+            String mensaje = "Talla no valida, debe ser S, M, L, XL ó EG";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        }
+    }
+    
+    public void validaAltura(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException {
+        String valor = value.toString();
+        if (valor.equals("0.0")) {
+            String mensaje = "Altura no válida";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        }
+    }
+
+    public void creaDeportista() {
+        
+    }
+
+    public void limpiaCasillas() {
+    }
+}
