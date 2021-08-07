@@ -23,6 +23,7 @@ import utilitario.ValidadorFormatos;
 import javax.faces.context.FacesContext;
 import dao.SNMPExceptions;
 import model.Direccion;
+import utilitario.Email;
 
 /**
  *
@@ -469,6 +470,8 @@ public class beanDeportista implements Serializable {
 
         if (oDeportistaDB.consultarDeportista(this.id) == true) {
             String mensaje = "Deportista ya registrado";
+            Email oEmail = new Email();
+            oEmail.sendEmail(this.correoElectronico, oDeportista);
             throw new ValidatorException(new FacesMessage(mensaje));
         } else {
             oDeportistaDB.insertarDeportista(oDeportista);
