@@ -12,13 +12,16 @@ package model;
 public class Direccion {
     
     private int id;
-    private String provincia;
-    private String canton;
-    private String distrito;
-    private String barrio;
+    private int provincia;
+    private int canton;
+    private int distrito;
+    private int barrio;
     private String otrasSennas;
 
-    public Direccion(int id, String provincia, String canton, String distrito, String barrio, String otrasSennas) {
+    public Direccion() {
+    }
+    
+    public Direccion(int id, int provincia, int canton, int distrito, int barrio, String otrasSennas) {
         this.id = id;
         this.provincia = provincia;
         this.canton = canton;
@@ -35,35 +38,35 @@ public class Direccion {
         this.id = id;
     }
 
-    public String getProvincia() {
+    public int getProvincia() {
         return provincia;
     }
 
-    public void setProvincia(String provincia) {
+    public void setProvincia(int provincia) {
         this.provincia = provincia;
     }
 
-    public String getCanton() {
+    public int getCanton() {
         return canton;
     }
 
-    public void setCanton(String canton) {
+    public void setCanton(int canton) {
         this.canton = canton;
     }
 
-    public String getDistrito() {
+    public int getDistrito() {
         return distrito;
     }
 
-    public void setDistrito(String distrito) {
+    public void setDistrito(int distrito) {
         this.distrito = distrito;
     }
 
-    public String getBarrio() {
+    public int getBarrio() {
         return barrio;
     }
 
-    public void setBarrio(String barrio) {
+    public void setBarrio(int barrio) {
         this.barrio = barrio;
     }
 

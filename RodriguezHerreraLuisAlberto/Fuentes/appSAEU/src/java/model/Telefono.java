@@ -49,7 +49,7 @@ public class Telefono {
         this.numero = numero;
     }
 
-    public int isLog_estado() {
+    public int getLog_estado() {
         return log_estado;
     }
 

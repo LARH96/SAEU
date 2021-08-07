@@ -8,6 +8,7 @@ package controller;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,8 +18,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.validator.ValidatorException;
 import model.Deportista;
 import model.Telefono;
+import model.DeportistaDB;
 import utilitario.ValidadorFormatos;
 import javax.faces.context.FacesContext;
+import dao.SNMPExceptions;
+import model.Direccion;
 
 /**
  *
@@ -46,12 +50,14 @@ public class beanDeportista implements Serializable {
     private String objetivoDeporte1;
     private String objetivoDeporte2;
     private String objetivoDeporte3;
-    private boolean pago;
+    private int pago;
     private List<Telefono> listaTelefono = new ArrayList<Telefono>();
+    private Direccion oDireccion = new Direccion();
+    private String otrasSennas;
 
     //extra
-    private int telefono;
-    private String listaTel = " Teléfonos agregados: ";
+    private int telefono1;
+    private int telefono2;
     private float imc;
     private String gradoObesidad;
 
@@ -61,6 +67,9 @@ public class beanDeportista implements Serializable {
     public beanDeportista() {
     }
 
+    //==========================================================================
+    // Accessors
+    //==========================================================================
     public int getId() {
         return id;
     }
@@ -205,20 +214,28 @@ public class beanDeportista implements Serializable {
         this.objetivoDeporte3 = objetivoDeporte3;
     }
 
-    public boolean isPago() {
+    public int getPago() {
         return pago;
     }
 
-    public void setPago(boolean pago) {
+    public void setPago(int pago) {
         this.pago = pago;
     }
 
-    public int getTelefono() {
-        return telefono;
+    public int getTelefono1() {
+        return telefono1;
     }
 
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
+    public void setTelefono1(int telefono1) {
+        this.telefono1 = telefono1;
+    }
+
+    public int getTelefono2() {
+        return telefono2;
+    }
+
+    public void setTelefono2(int telefono2) {
+        this.telefono2 = telefono2;
     }
 
     public List<Telefono> getListaTelefono() {
@@ -228,21 +245,21 @@ public class beanDeportista implements Serializable {
     public void setListaTelefono(List<Telefono> listaTelefono) {
         this.listaTelefono = listaTelefono;
     }
-
-    public String getListaTel() {
-        return listaTel;
-    }
-
-    public void setListaTel(String listaTel) {
-        this.listaTel = listaTel;
-    }
-
+    
     public float getImc() {
         return imc;
     }
 
     public void setImc(float imc) {
         this.imc = imc;
+    }
+
+    public String getOtrasSennas() {
+        return otrasSennas;
+    }
+
+    public void setOtrasSennas(String otrasSennas) {
+        this.otrasSennas = otrasSennas;
     }
 
     public String getGradoObesidad() {
@@ -253,78 +270,82 @@ public class beanDeportista implements Serializable {
         this.gradoObesidad = gradoObesidad;
     }
 
-    public void asignaIMCYGradoObesidad() {
-        calculaIMC();
-        calculaGradoObesidad();
+    public Direccion getoDireccion() {
+        return oDireccion;
     }
 
-    public void calculaIMC() {
-        Deportista oDeportista = new Deportista();
-        this.imc = oDeportista.calculaIMC(this.peso, this.altura);
+    public void setoDireccion(Direccion oDireccion) {
+        this.oDireccion = oDireccion;
     }
 
-    public void calculaGradoObesidad() {
-        Deportista oDeportista = new Deportista();
-        this.gradoObesidad = oDeportista.calculaGradoObesidad(this.imc);
-    }
-
-    public void agregaTelefono() {
-        java.util.Date date = new java.util.Date();
-        java.sql.Date date2 = new java.sql.Date(date.getTime());
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        String fechaRegistra = df.format(date);
-        String fechaEdita = df.format(date);
-        listaTelefono.add(new Telefono(this.id, this.telefono, 1, this.id, date2, 0, date2));
-        listaTel += this.telefono + ",";
-        this.telefono = 0;
-    }
-
+    //==========================================================================
+    // Validators
+    //==========================================================================
     public void validaProvincia(FacesContext context, UIComponent component, Object value)
             throws ValidatorException {
         String valor = value.toString();
+        double valorDouble = Double.parseDouble(valor);
+        int valorInt = (int) valorDouble;
         if (valor.equals("0.0")) {
             String mensaje = "Provincia no especificada";
             throw new ValidatorException(new FacesMessage(mensaje));
+        } else {
+            oDireccion.setProvincia(valorInt);
         }
     }
 
     public void validaCanton(FacesContext context, UIComponent component, Object value)
             throws ValidatorException {
         String valor = value.toString();
+        double valorDouble = Double.parseDouble(valor);
+        int valorInt = (int) valorDouble;
         if (valor.equals("0.0")) {
             String mensaje = "Cantón no especificado";
             throw new ValidatorException(new FacesMessage(mensaje));
+        } else {
+            oDireccion.setCanton(valorInt);
         }
     }
 
     public void validaDistrito(FacesContext context, UIComponent component, Object value)
             throws ValidatorException {
         String valor = value.toString();
+        double valorDouble = Double.parseDouble(valor);
+        int valorInt = (int) valorDouble;
         if (valor.equals("0.0")) {
             String mensaje = "Distrito no especificado";
             throw new ValidatorException(new FacesMessage(mensaje));
+        } else {
+            oDireccion.setDistrito(valorInt);
         }
     }
 
     public void validaBarrio(FacesContext context, UIComponent component, Object value)
             throws ValidatorException {
         String valor = value.toString();
+        double valorDouble = Double.parseDouble(valor);
+        int valorInt = (int) valorDouble;
         if (valor.equals("0.0")) {
             String mensaje = "Barrio no especificado";
             throw new ValidatorException(new FacesMessage(mensaje));
+        } else {
+            oDireccion.setBarrio(valorInt);
         }
     }
 
     public void validaDisciplinaDeportiva(FacesContext context, UIComponent component, Object value)
             throws ValidatorException {
         String valor = value.toString();
+        double valorDouble = Double.parseDouble(valor);
+        int valorInt = (int) valorDouble;
         if (valor.equals("0")) {
             String mensaje = "Disciplina deportiva no especificada";
             throw new ValidatorException(new FacesMessage(mensaje));
+        } else {
+            setDisciplinaDeportiva(valorInt);
         }
     }
-    
+
     public void validaPeso(FacesContext context, UIComponent component, Object value)
             throws ValidatorException {
         String valor = value.toString();
@@ -346,8 +367,8 @@ public class beanDeportista implements Serializable {
             String mensaje = "Talla no valida, debe ser S, M, L, XL ó EG";
             throw new ValidatorException(new FacesMessage(mensaje));
         }
-    }
-    
+    }   
+
     public void validaAltura(FacesContext context, UIComponent component, Object value)
             throws ValidatorException {
         String valor = value.toString();
@@ -356,11 +377,104 @@ public class beanDeportista implements Serializable {
             throw new ValidatorException(new FacesMessage(mensaje));
         }
     }
+    
+    public void validaOtrasSennas(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException {
+        String valor = value.toString();
+        if (valor.isEmpty()) {
+            String mensaje = "Debes indicar Otras señas";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        } else {
+            oDireccion.setOtrasSennas(valor);
+        }
+    }
 
-    public void creaDeportista() {
-        
+    //==========================================================================
+    // Methods
+    //==========================================================================
+    public void asignaIMCYGradoObesidad() {
+        calculaIMC();
+        calculaGradoObesidad();
+    }
+
+    public void calculaIMC() {
+        Deportista oDeportista = new Deportista();
+        this.imc = oDeportista.calculaIMC(this.peso, this.altura);
+    }
+
+    public void calculaGradoObesidad() {
+        Deportista oDeportista = new Deportista();
+        this.gradoObesidad = oDeportista.calculaGradoObesidad(this.imc);
     }
 
     public void limpiaCasillas() {
+        this.id = 0;
+        getTipoIdentificacion();
+        this.nombre = "";
+        this.apellido1 = "";
+        this.apellido2 = "";
+        this.correoElectronico = "";
+        this.log_estado = 1;
+        this.peso = 0f;
+        this.talla = "";
+        this.altura = 0.0f;
+        this.objetivoDeporte1 = "";
+        this.objetivoDeporte2 = "";
+        this.objetivoDeporte3 = "";
+        this.pago = 0;
+        this.listaTelefono.clear();
+    }
+
+    public void asignaDireccion() {
+        setoDireccion(new Direccion(this.id, oDireccion.getProvincia(),
+                oDireccion.getCanton(), oDireccion.getDistrito(), oDireccion.getBarrio(), this.otrasSennas));
+    }
+
+    public void asignaTipoIdentificacion(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException {
+        String valor = value.toString();
+        if (valor.isEmpty()) {
+            String mensaje = "Tipo identificación no seleccionada";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        } else {
+            this.tipoIdentificacion = Integer.parseInt(valor);
+        }
+    }
+
+    public void creaDeportista() throws SNMPExceptions, SQLException {
+
+        this.pago = 1;
+        this.log_estado = 1;
+        java.util.Date date = new java.util.Date();
+        java.sql.Date date2 = new java.sql.Date(date.getTime());
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.codUsuario_Registra = this.id;
+        this.fechaRegistra = date2;
+        this.codUsuario_Edita = this.id;
+        this.fechaEdita = date2;
+
+        Deportista oDeportista = new Deportista(
+                this.peso, this.talla, this.altura,
+                this.objetivoDeporte1, this.objetivoDeporte2,
+                this.objetivoDeporte3, this.pago, this.id,
+                this.tipoIdentificacion, this.nombre, this.apellido1,
+                this.apellido2, this.correoElectronico, this.DisciplinaDeportiva,
+                this.log_estado, this.codUsuario_Registra, date2,
+                this.codUsuario_Edita, date2, this.oDireccion
+        );
+        oDeportista.agregaTelefono(new Telefono(this.id, this.telefono1, 1, this.id, date2, 0, date2));
+        oDeportista.agregaTelefono(new Telefono(this.id, this.telefono2, 1, this.id, date2, 0, date2));
+
+        DeportistaDB oDeportistaDB = new DeportistaDB();
+
+        if (oDeportistaDB.consultarDeportista(this.id) == true) {
+            String mensaje = "Deportista ya registrado";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        } else {
+            oDeportistaDB.insertarDeportista(oDeportista);
+            String mensaje = "Deportista correctamente registrado!";
+            limpiaCasillas();
+            //throw new ValidatorException(new FacesMessage(mensaje));
+        }
     }
 }

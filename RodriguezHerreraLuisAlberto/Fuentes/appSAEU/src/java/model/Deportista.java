@@ -22,7 +22,7 @@ public class Deportista extends Persona {
     private String objetivoDeporte1;
     private String objetivoDeporte2;
     private String objetivoDeporte3;
-    private boolean pago;
+    private int pago;
     private List<Telefono> listaTelefono = new ArrayList<Telefono>();
 
     public Deportista() {
@@ -31,7 +31,7 @@ public class Deportista extends Persona {
 
     public Deportista(float peso, String talla, float altura,
             String objetivoDeporte1, String objetivoDeporte2,
-            String objetivoDeporte3, boolean pago, int id,
+            String objetivoDeporte3, int pago, int id,
             int tipoIdentificacion, String nombre, String apellido1,
             String apellido2, String correoElectronico, int DisciplinaDeportiva,
             int log_estado, int codUsuario_Registra, Date fechaRegistra,
@@ -95,11 +95,11 @@ public class Deportista extends Persona {
         this.objetivoDeporte3 = objetivoDeporte3;
     }
 
-    public boolean isPago() {
+    public int getPago() {
         return pago;
     }
 
-    public void setPago(boolean pago) {
+    public void setPago(int pago) {
         this.pago = pago;
     }
 
@@ -109,6 +109,10 @@ public class Deportista extends Persona {
 
     public void setListaTelefono(List<Telefono> listaTelefono) {
         this.listaTelefono = listaTelefono;
+    }
+    
+    public void agregaTelefono(Telefono pTelefono){
+       listaTelefono.add(pTelefono);
     }
 
     public float calculaIMC(float peso, float altura) {

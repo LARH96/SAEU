@@ -33,8 +33,9 @@
                                 <div class="row">
                                     <h:outputLabel value="Tipo Identificación:"></h:outputLabel>
                                     <h:selectOneMenu label="tipoIdentificacion"
-                                                     value="#{beanTipoIdentificacion.id}"
-                                                     id="tipoIdentificacion"> 		    
+                                                     value="#{beanDeportista.tipoIdentificacion}"
+                                                     id="tipoIdentificacion"
+                                                     validator="#{beanDeportista.asignaTipoIdentificacion}"> 		    
                                         <f:selectItems value="#{beanTipoIdentificacion.listaTipoIdentificacion}"/>
                                     </h:selectOneMenu>
                                     <h:outputLabel value="Identificación:"></h:outputLabel>
@@ -90,17 +91,18 @@
                                 </div>
                                 <div class="row">
                                     <h:outputLabel value="Otras señas:"></h:outputLabel>
-                                    <h:inputText size="65" value="#{beanDireccion.otrasSennas}"
-                                                 required="true" label="Otras señas es requerido">
+                                    <h:inputText size="65" value="#{beanDeportista.otrasSennas}"
+                                                 required="true" label="Otras señas es requerido"
+                                                 validator="#{beanDeportista.validaOtrasSennas}">
                                     </h:inputText>
                                 </div>
                                 <div class="row">
                                     <h:outputLabel value="Teléfono 1:"></h:outputLabel>
-                                    <h:inputText label="Teléfono 1 debe ser de 8 dígitos" value="#{beanDeportista.telefono}">
+                                    <h:inputText label="Teléfono 1 debe ser de 8 dígitos" value="#{beanDeportista.telefono1}">
                                         <f:validateLength minimum="8"></f:validateLength>
                                     </h:inputText>
                                     <h:outputLabel value="Teléfono 2:"></h:outputLabel>
-                                    <h:inputText label="Teléfono 2 debe ser de 8 dígitos" value="#{beanDeportista.telefono}">
+                                    <h:inputText label="Teléfono 2 debe ser de 8 dígitos" value="#{beanDeportista.telefono2}">
                                         <f:validateLength minimum="8"></f:validateLength>
                                     </h:inputText>
                                 </div>
@@ -114,7 +116,7 @@
                                 <div class="row">
                                     <h:outputLabel value="Disciplina Deportiva:"></h:outputLabel>
                                     <h:selectOneMenu label="disciplinaDeportiva" value="#{beanDisciplinaDeportiva.id}"
-                                                     onchange="submit()" id="disciplinaDeportiva"
+                                                     id="disciplinaDeportiva"
                                                      validator="#{beanDeportista.validaDisciplinaDeportiva}"> 		    
                                         <f:selectItems value="#{beanDisciplinaDeportiva.listaDisciplinaDeportiva}"/>
                                     </h:selectOneMenu>
