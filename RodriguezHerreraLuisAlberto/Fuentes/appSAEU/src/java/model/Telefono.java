@@ -33,6 +33,10 @@ public class Telefono {
         this.fechaEdita = fechaEdita;
     }
 
+    public Telefono(int numero) {
+        this.numero = numero;
+    }
+
     public int getId() {
         return id;
     }

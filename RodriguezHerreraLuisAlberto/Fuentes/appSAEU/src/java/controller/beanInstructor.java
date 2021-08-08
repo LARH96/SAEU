@@ -18,13 +18,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
-import model.DeportistaDB;
+import javax.naming.NamingException;
 import model.Direccion;
 import model.DisciplinaDeportiva;
 import model.Instructor;
 import model.InstructorDB;
 import model.Telefono;
-import utilitario.Email;
 
 /**
  *
@@ -50,6 +49,10 @@ public class beanInstructor implements Serializable {
     private String otrasSennas;
 
     //extra
+    private beanDisciplinaDeportiva obeanDisciplinaDeportiva1 = new beanDisciplinaDeportiva();
+    private beanDisciplinaDeportiva obeanDisciplinaDeportiva2 = new beanDisciplinaDeportiva();
+    private beanDisciplinaDeportiva obeanDisciplinaDeportiva3 = new beanDisciplinaDeportiva();
+    private beanProvincias obeanProvincias = new beanProvincias();
     private int telefono1;
     private int telefono2;
     private int disciplinaDeportiva1;
@@ -57,16 +60,85 @@ public class beanInstructor implements Serializable {
     private int disciplinaDeportiva3;
     private String mensajeExito;
     private String mensajeFallido;
+    private int idBuscar;
+    private boolean desabilitar;
+    private boolean desabilitarId;
+    private boolean modoEditarActivado = false;
+    private Instructor oInstructorSinEditar = null;
 
     /**
      * Creates a new instance of beanDeportista
      */
     public beanInstructor() {
     }
+    
+    public boolean isModoEditarActivado() {
+        return modoEditarActivado;
+    }
+
+    public void setModoEditarActivado(boolean modoEditarActivado) {
+        this.modoEditarActivado = modoEditarActivado;
+    }
+
+    public boolean isDesabilitarId() {
+        return desabilitarId;
+    }
+
+    public void setDesabilitarId(boolean desabilitarId) {
+        this.desabilitarId = desabilitarId;
+    }
+
+    public beanProvincias getObeanProvincias() {
+        return obeanProvincias;
+    }
+
+    public void setObeanProvincias(beanProvincias obeanProvincias) {
+        this.obeanProvincias = obeanProvincias;
+    }
+
+    public boolean getDesabilitar() {
+        return desabilitar;
+    }
+
+    public void setDesabilitar(boolean desabilitar) {
+        this.desabilitar = desabilitar;
+    }
+
+    public int getIdBuscar() {
+        return idBuscar;
+    }
+
+    public beanDisciplinaDeportiva getObeanDisciplinaDeportiva1() {
+        return obeanDisciplinaDeportiva1;
+    }
+
+    public void setObeanDisciplinaDeportiva1(beanDisciplinaDeportiva obeanDisciplinaDeportiva1) {
+        this.obeanDisciplinaDeportiva1 = obeanDisciplinaDeportiva1;
+    }
+
+    public beanDisciplinaDeportiva getObeanDisciplinaDeportiva2() {
+        return obeanDisciplinaDeportiva2;
+    }
+
+    public void setObeanDisciplinaDeportiva2(beanDisciplinaDeportiva obeanDisciplinaDeportiva2) {
+        this.obeanDisciplinaDeportiva2 = obeanDisciplinaDeportiva2;
+    }
+
+    public beanDisciplinaDeportiva getObeanDisciplinaDeportiva3() {
+        return obeanDisciplinaDeportiva3;
+    }
 
     //==========================================================================
     // Accessors
     //==========================================================================
+    public void setObeanDisciplinaDeportiva3(beanDisciplinaDeportiva obeanDisciplinaDeportiva3) {
+        this.obeanDisciplinaDeportiva3 = obeanDisciplinaDeportiva3;
+    }
+
+    public void setIdBuscar(int idBuscar) {
+        this.idBuscar = idBuscar;
+    }
+
     public int getId() {
         return id;
     }
@@ -353,6 +425,7 @@ public class beanInstructor implements Serializable {
     // Methods
     //==========================================================================
     public void limpiaCasillas() {
+        modoEditarActivado = false;
         this.id = 0;
         getTipoIdentificacion();
         this.nombre = "";
@@ -364,6 +437,16 @@ public class beanInstructor implements Serializable {
         this.telefono1 = 0;
         this.telefono2 = 0;
         this.otrasSennas = "";
+        desabilitarAFalse();
+        obeanDisciplinaDeportiva1.setId(0);
+        obeanDisciplinaDeportiva2.setId(0);
+        obeanDisciplinaDeportiva3.setId(0);
+        mensajeExito = "";
+        mensajeFallido = "";
+        obeanProvincias.setCod_provincia(0);
+        obeanProvincias.setCod_canton(0);
+        obeanProvincias.setCod_distrito(0);
+        obeanProvincias.setCod_barrio(0);
     }
 
     public void asignaDireccion() {
@@ -382,10 +465,11 @@ public class beanInstructor implements Serializable {
         }
     }
 
-    public void creaInstructor() throws SNMPExceptions, SQLException {
+    public void creaInstructor() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         this.mensajeExito = "";
         this.mensajeFallido = "";
-
+        InstructorDB oInstructorDB = new InstructorDB();
+        
         this.log_estado = 1;
         java.util.Date date = new java.util.Date();
         java.sql.Date date2 = new java.sql.Date(date.getTime());
@@ -394,7 +478,6 @@ public class beanInstructor implements Serializable {
         this.fechaRegistra = date2;
         this.codUsuario_Edita = this.id;
         this.fechaEdita = date2;
-
         Instructor oInstructor = new Instructor(
                 this.id, this.tipoIdentificacion, this.nombre, this.apellido1,
                 this.apellido2, this.correoElectronico,
@@ -407,15 +490,77 @@ public class beanInstructor implements Serializable {
         oInstructor.agregaDisciplinaDeportiva(new DisciplinaDeportiva(this.disciplinaDeportiva2));
         oInstructor.agregaDisciplinaDeportiva(new DisciplinaDeportiva(this.disciplinaDeportiva3));
 
+        if (modoEditarActivado) {
+            oInstructorDB.editarInstructor(oInstructor, oInstructorSinEditar);
+            mensajeExito = "Instructor editado correctamente!";
+        } else {
+            if (oInstructorDB.consultarInstructor(this.id) == true) {
+                mensajeFallido = "Instructor ya registrado!";
+            } else {
+                oInstructorDB.insertarInstructor(oInstructor);
+                mensajeExito = "Instructor correctamente registrado!";
+                limpiaCasillas();
+            }
+        }
+
+        modoEditarActivado = false;
+    }
+
+    public void buscarInstructor() throws SNMPExceptions, SQLException {
+        modoEditarActivado = false;
+        mensajeExito = "";
+        mensajeFallido = "";
+
+        Instructor oInstructor = null;
         InstructorDB oInstructorDB = new InstructorDB();
 
-        if (oInstructorDB.consultarInstructor(this.id) == true) {
-            mensajeFallido = "Instructor ya registrado!";
+        if (oInstructorDB.consultarInstructor(this.idBuscar) == false) {
+            mensajeFallido = "Instructor no existe!";
         } else {
-            oInstructorDB.insertarInstructor(oInstructor);
-            mensajeExito = "Instructor correctamente registrado!";
-            limpiaCasillas();
-            //throw new ValidatorException(new FacesMessage(mensaje));
+            oInstructor = oInstructorDB.buscarInstructor(this.idBuscar);
+            this.id = oInstructor.getId();
+            this.tipoIdentificacion = oInstructor.getTipoIdentificacion();
+            this.nombre = oInstructor.getNombre();
+            this.apellido1 = oInstructor.getApellido1();
+            this.apellido2 = oInstructor.getApellido2();
+            this.correoElectronico = oInstructor.getCorreoElectronico();
+            this.log_estado = oInstructor.getLog_estado();
+            this.otrasSennas = oInstructor.getoDireccion().getOtrasSennas();
+            this.telefono1 = oInstructor.getListaTelefono().get(0).getNumero();
+            this.telefono2 = oInstructor.getListaTelefono().get(1).getNumero();
+            this.obeanDisciplinaDeportiva1.setId(oInstructor.getListaDisciplinaDeportiva().get(0).getId());
+            this.obeanDisciplinaDeportiva2.setId(oInstructor.getListaDisciplinaDeportiva().get(1).getId());
+            this.obeanDisciplinaDeportiva3.setId(oInstructor.getListaDisciplinaDeportiva().get(2).getId());
+            this.obeanProvincias.setCod_provincia(oInstructor.getoDireccion().getProvincia());
+            this.obeanProvincias.setCod_canton(oInstructor.getoDireccion().getCanton());
+            this.obeanProvincias.setCod_distrito(oInstructor.getoDireccion().getDistrito());
+            this.obeanProvincias.setCod_barrio(oInstructor.getoDireccion().getBarrio());
+            
+            //For posible update
+            oInstructorSinEditar = oInstructor;
+            oInstructorSinEditar.agregaTelefono(new Telefono(oInstructor.getListaTelefono().get(0).getNumero()));
+            oInstructorSinEditar.agregaTelefono(new Telefono(oInstructor.getListaTelefono().get(1).getNumero()));
+            oInstructorSinEditar.agregaDisciplinaDeportiva(new DisciplinaDeportiva(oInstructor.getListaDisciplinaDeportiva().get(0).getId()));
+            oInstructorSinEditar.agregaDisciplinaDeportiva(new DisciplinaDeportiva(oInstructor.getListaDisciplinaDeportiva().get(1).getId()));
+            oInstructorSinEditar.agregaDisciplinaDeportiva(new DisciplinaDeportiva(oInstructor.getListaDisciplinaDeportiva().get(3).getId()));
+            
+            desabilitarAtrue();
         }
+    }
+
+    public void desabilitarAFalse() {
+        desabilitar = false;
+        desabilitarId = false;
+    }
+
+    public void modoEditar() {
+        modoEditarActivado = true;
+        desabilitar = false;
+        desabilitarId = true;
+    }
+
+    public void desabilitarAtrue() {
+        desabilitar = true;
+        desabilitarId = true;
     }
 }
