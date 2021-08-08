@@ -6,6 +6,8 @@
 package model;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,7 +15,39 @@ import java.sql.Date;
  */
 public class Instructor extends Persona {
 
-    public Instructor(int id, int tipoIdentificacion, String nombre, String apellido1, String apellido2, String correoElectronico, int DisciplinaDeportiva, int log_estado, int codUsuario_Registra, Date fechaRegistra, int codUsuario_Edita, Date fechaEdita, Direccion oDireccion) {
-        super(id, tipoIdentificacion, nombre, apellido1, apellido2, correoElectronico, DisciplinaDeportiva, log_estado, codUsuario_Registra, fechaRegistra, codUsuario_Edita, fechaEdita, oDireccion);
+    private List<Telefono> listaTelefono = new ArrayList<Telefono>();
+    private List<DisciplinaDeportiva> listaDisciplinaDeportiva = new ArrayList<DisciplinaDeportiva>();
+    
+    public Instructor(int id, int tipoIdentificacion, String nombre,
+            String apellido1, String apellido2, String correoElectronico,
+            int log_estado, int codUsuario_Registra, Date fechaRegistra,
+            int codUsuario_Edita, Date fechaEdita, Direccion oDireccion) {
+        super(id, tipoIdentificacion, nombre, apellido1, apellido2,
+                correoElectronico, log_estado, codUsuario_Registra,
+                fechaRegistra, codUsuario_Edita, fechaEdita, oDireccion);
+    }
+    
+    public void agregaTelefono(Telefono pTelefono){
+       listaTelefono.add(pTelefono);
+    }
+
+    public List<Telefono> getListaTelefono() {
+        return listaTelefono;
+    }
+
+    public List<DisciplinaDeportiva> getListaDisciplinaDeportiva() {
+        return listaDisciplinaDeportiva;
+    }
+
+    public void setListaDisciplinaDeportiva(List<DisciplinaDeportiva> listaDisciplinaDeportiva) {
+        this.listaDisciplinaDeportiva = listaDisciplinaDeportiva;
+    }
+    
+    public void setListaTelefono(List<Telefono> listaTelefono) {
+        this.listaTelefono = listaTelefono;
+    }
+    
+    public void agregaDisciplinaDeportiva(DisciplinaDeportiva pDisciplinaDeportiva){
+       listaDisciplinaDeportiva.add(pDisciplinaDeportiva);
     }
 }

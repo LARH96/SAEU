@@ -34,7 +34,8 @@ Seguridad:
 OK	-Login deportista //btn Volver a index												//IMPORTANTE
 OK	-Login entrenador //btn Volver a index												//IMPORTANTE
 OK	-Login admin	  //btn Volver a index												//IMPORTANTE
-OK	-Recuperar contraseña //Envia correo que tiene un boton que envia a pantalla "Cambiar contraseña" de ese usuario		//IMPORTANTE
+OK	-Recuperar contraseña
+FALTA		//Envia correo que tiene un boton que envia a pantalla "Cambiar contraseña" de ese usuario				//IMPORTANTE
 OK	-Pantalla de "Usuario no autorizado"												//IMPORTANTE
 OK	-Cambiar contraseña(opcion del menú principal) //Ojo Mensaje de “Registro almacenado correctamente”.				//IMPORTANTE
 	-Requerimiento contraseña:													//IMPORTANTE
@@ -54,12 +55,12 @@ Pantalla principal:
 OK	-Principal deportista //es un SPA
 OK	-Principal entrenador
 OK	-Principal admin //bug si solo dejo un <ui:include> no carga dropdowns, entonces dejé dos <ui:include> pero queda pag muy larga
-OK	-admin vacio
+OK	-admin vacio //es el fondo de la parte de abajo de "Principal admin" por el error con el router
 
 Deportista:
-	-Autoregistro(datos personales, objetivo y envia correo de confirmacion) //no es Mantenimiento(es la  pantalla crear una cuenta) //IMPORTANTE
-		//Ojo Mensaje de “Registro almacenado correctamente”.
-		//Una vez realizado el autoregistro el sistema debe enviar un correo electrónico al cliente indicándole que se ha realizado su registro y tan 				pronto como sea asignado un instructor le esta llegando un correo con la comunicación.
+OK	-Autoregistro(datos personales, objetivo y envia correo de confirmacion) //no es Mantenimiento(es la  pantalla crear una cuenta) //IMPORTANTE
+FALTA		//Ojo Mensaje de “Registro almacenado correctamente”.
+OK		//Una vez realizado el autoregistro el sistema debe enviar un correo electrónico al cliente indicándole que se ha realizado su registro y tan 				pronto como sea asignado un instructor le esta llegando un correo con la comunicación.
 	-Registra cumplimiento de actividades deportivas indicadas en plan de entrenamiento && muestra observaciones de			//IMPORTANTE
 	cumplimientos de actividades anteriores//Ojo Mensaje de “Registro almacenado correctamente”.
 		NOTA: Inactivo hasta q se pague

@@ -39,6 +39,10 @@ public class DisciplinaDeportiva {
         this.fechaEdita = fechaEdita;
     }
 
+    public DisciplinaDeportiva(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

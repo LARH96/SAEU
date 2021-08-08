@@ -23,6 +23,18 @@ and open the template in the editor.
     width: 160px
 }
 
-.campoRequerido{
+.campoRequerido {
     color: red;
+}
+
+.tareaRealizadaCorrectamente {
+    color: green;
+}
+
+.tareaFallo {
+    color: red;
+}
+
+.menuBotones {
+    margin-left: 300px;
 }

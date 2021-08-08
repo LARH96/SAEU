@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.SNMPExceptions;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -15,23 +16,23 @@ import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.validator.ValidatorException;
-import model.Deportista;
-import model.Telefono;
-import model.DeportistaDB;
-import utilitario.ValidadorFormatos;
 import javax.faces.context.FacesContext;
-import dao.SNMPExceptions;
+import javax.faces.validator.ValidatorException;
+import model.DeportistaDB;
 import model.Direccion;
+import model.DisciplinaDeportiva;
+import model.Instructor;
+import model.InstructorDB;
+import model.Telefono;
 import utilitario.Email;
 
 /**
  *
  * @author LARH96
  */
-@Named(value = "beanDeportista")
+@Named(value = "beanInstructor")
 @SessionScoped
-public class beanDeportista implements Serializable {
+public class beanInstructor implements Serializable {
 
     private int id;
     private int tipoIdentificacion;
@@ -39,19 +40,11 @@ public class beanDeportista implements Serializable {
     private String apellido1;
     private String apellido2;
     private String correoElectronico;
-    private int DisciplinaDeportiva;
     private int log_estado;
     private int codUsuario_Registra;
     private Date fechaRegistra;
     private int codUsuario_Edita;
     private Date fechaEdita;
-    private float peso;
-    private String talla;
-    private float altura;
-    private String objetivoDeporte1;
-    private String objetivoDeporte2;
-    private String objetivoDeporte3;
-    private int pago;
     private List<Telefono> listaTelefono = new ArrayList<Telefono>();
     private Direccion oDireccion = new Direccion();
     private String otrasSennas;
@@ -59,42 +52,51 @@ public class beanDeportista implements Serializable {
     //extra
     private int telefono1;
     private int telefono2;
-    private float imc;
-    private String gradoObesidad;
-    String mensajeExito;
-    String mensajeFallido;
+    private int disciplinaDeportiva1;
+    private int disciplinaDeportiva2;
+    private int disciplinaDeportiva3;
+    private String mensajeExito;
+    private String mensajeFallido;
 
     /**
      * Creates a new instance of beanDeportista
      */
-    public beanDeportista() {
-    }
-
-    public String getMensajeExito() {
-        return mensajeExito;
-    }
-
-    public void setMensajeExito(String mensajeExito) {
-        this.mensajeExito = mensajeExito;
-    }
-
-    public String getMensajeFallido() {
-        return mensajeFallido;
+    public beanInstructor() {
     }
 
     //==========================================================================
     // Accessors
     //==========================================================================
-    public void setMensajeFallido(String mensajeFallido) {
-        this.mensajeFallido = mensajeFallido;
-    }
-
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getDisciplinaDeportiva1() {
+        return disciplinaDeportiva1;
+    }
+
+    public void setDisciplinaDeportiva1(int disciplinaDeportiva1) {
+        this.disciplinaDeportiva1 = disciplinaDeportiva1;
+    }
+
+    public int getDisciplinaDeportiva2() {
+        return disciplinaDeportiva2;
+    }
+
+    public void setDisciplinaDeportiva2(int disciplinaDeportiva2) {
+        this.disciplinaDeportiva2 = disciplinaDeportiva2;
+    }
+
+    public int getDisciplinaDeportiva3() {
+        return disciplinaDeportiva3;
+    }
+
+    public void setDisciplinaDeportiva3(int disciplinaDeportiva3) {
+        this.disciplinaDeportiva3 = disciplinaDeportiva3;
     }
 
     public int getTipoIdentificacion() {
@@ -121,6 +123,22 @@ public class beanDeportista implements Serializable {
         this.apellido1 = apellido1;
     }
 
+    public String getMensajeExito() {
+        return mensajeExito;
+    }
+
+    public void setMensajeExito(String mensajeExito) {
+        this.mensajeExito = mensajeExito;
+    }
+
+    public String getMensajeFallido() {
+        return mensajeFallido;
+    }
+
+    public void setMensajeFallido(String mensajeFallido) {
+        this.mensajeFallido = mensajeFallido;
+    }
+
     public String getApellido2() {
         return apellido2;
     }
@@ -135,14 +153,6 @@ public class beanDeportista implements Serializable {
 
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
-    }
-
-    public int getDisciplinaDeportiva() {
-        return DisciplinaDeportiva;
-    }
-
-    public void setDisciplinaDeportiva(int DisciplinaDeportiva) {
-        this.DisciplinaDeportiva = DisciplinaDeportiva;
     }
 
     public int getLog_estado() {
@@ -169,14 +179,6 @@ public class beanDeportista implements Serializable {
         this.fechaRegistra = fechaRegistra;
     }
 
-    public String getMensaje() {
-        return mensajeExito;
-    }
-
-    public void setMensaje(String mensaje) {
-        this.mensajeExito = mensaje;
-    }
-
     public int getCodUsuario_Edita() {
         return codUsuario_Edita;
     }
@@ -191,62 +193,6 @@ public class beanDeportista implements Serializable {
 
     public void setFechaEdita(Date fechaEdita) {
         this.fechaEdita = fechaEdita;
-    }
-
-    public float getPeso() {
-        return peso;
-    }
-
-    public void setPeso(float peso) {
-        this.peso = peso;
-    }
-
-    public String getTalla() {
-        return talla;
-    }
-
-    public void setTalla(String talla) {
-        this.talla = talla;
-    }
-
-    public float getAltura() {
-        return altura;
-    }
-
-    public void setAltura(float altura) {
-        this.altura = altura;
-    }
-
-    public String getObjetivoDeporte1() {
-        return objetivoDeporte1;
-    }
-
-    public void setObjetivoDeporte1(String objetivoDeporte1) {
-        this.objetivoDeporte1 = objetivoDeporte1;
-    }
-
-    public String getObjetivoDeporte2() {
-        return objetivoDeporte2;
-    }
-
-    public void setObjetivoDeporte2(String objetivoDeporte2) {
-        this.objetivoDeporte2 = objetivoDeporte2;
-    }
-
-    public String getObjetivoDeporte3() {
-        return objetivoDeporte3;
-    }
-
-    public void setObjetivoDeporte3(String objetivoDeporte3) {
-        this.objetivoDeporte3 = objetivoDeporte3;
-    }
-
-    public int getPago() {
-        return pago;
-    }
-
-    public void setPago(int pago) {
-        this.pago = pago;
     }
 
     public int getTelefono1() {
@@ -273,28 +219,12 @@ public class beanDeportista implements Serializable {
         this.listaTelefono = listaTelefono;
     }
 
-    public float getImc() {
-        return imc;
-    }
-
-    public void setImc(float imc) {
-        this.imc = imc;
-    }
-
     public String getOtrasSennas() {
         return otrasSennas;
     }
 
     public void setOtrasSennas(String otrasSennas) {
         this.otrasSennas = otrasSennas;
-    }
-
-    public String getGradoObesidad() {
-        return gradoObesidad;
-    }
-
-    public void setGradoObesidad(String gradoObesidad) {
-        this.gradoObesidad = gradoObesidad;
     }
 
     public Direccion getoDireccion() {
@@ -360,51 +290,6 @@ public class beanDeportista implements Serializable {
         }
     }
 
-    public void validaDisciplinaDeportiva(FacesContext context, UIComponent component, Object value)
-            throws ValidatorException {
-        String valor = value.toString();
-        double valorDouble = Double.parseDouble(valor);
-        int valorInt = (int) valorDouble;
-        if (valor.equals("0")) {
-            String mensaje = "Disciplina deportiva no especificada";
-            throw new ValidatorException(new FacesMessage(mensaje));
-        } else {
-            setDisciplinaDeportiva(valorInt);
-        }
-    }
-
-    public void validaPeso(FacesContext context, UIComponent component, Object value)
-            throws ValidatorException {
-        String valor = value.toString();
-        if (valor.equals("0.0")) {
-            String mensaje = "Peso no válido";
-            throw new ValidatorException(new FacesMessage(mensaje));
-        }
-    }
-
-    public void validaTalla(FacesContext context, UIComponent component, Object value)
-            throws ValidatorException {
-        String valor = value.toString();
-        if (valor.equals("S")
-                || valor.equals("M")
-                || valor.equals("L")
-                || valor.equals("XL")
-                || valor.equals("XXL")) {
-        } else {
-            String mensaje = "Talla no valida, debe ser S, M, L, XL ó EG";
-            throw new ValidatorException(new FacesMessage(mensaje));
-        }
-    }
-
-    public void validaAltura(FacesContext context, UIComponent component, Object value)
-            throws ValidatorException {
-        String valor = value.toString();
-        if (valor.equals("0.0")) {
-            String mensaje = "Altura no válida";
-            throw new ValidatorException(new FacesMessage(mensaje));
-        }
-    }
-
     public void validaOtrasSennas(FacesContext context, UIComponent component, Object value)
             throws ValidatorException {
         String valor = value.toString();
@@ -416,24 +301,57 @@ public class beanDeportista implements Serializable {
         }
     }
 
+    public void validaDisciplinaDeportiva1(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException {
+        String valor = value.toString();
+        double valorDouble = Double.parseDouble(valor);
+        int valorInt = (int) valorDouble;
+        if (valor.equals("0")) {
+            String mensaje = "Disciplina deportiva no especificada";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        } else if (valorInt == disciplinaDeportiva2 || valorInt == disciplinaDeportiva3) {
+            String mensaje = "Las disciplinas escogidas deben ser diferentes";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        } else {
+            setDisciplinaDeportiva1(valorInt);
+        }
+    }
+
+    public void validaDisciplinaDeportiva2(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException {
+        String valor = value.toString();
+        double valorDouble = Double.parseDouble(valor);
+        int valorInt = (int) valorDouble;
+        if (valor.equals("0")) {
+            String mensaje = "Disciplina deportiva no especificada";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        } else if (valorInt == disciplinaDeportiva1 || valorInt == disciplinaDeportiva3) {
+            String mensaje = "Las disciplinas escogidas deben ser diferentes";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        } else {
+            setDisciplinaDeportiva1(valorInt);
+        }
+    }
+
+    public void validaDisciplinaDeportiva3(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException {
+        String valor = value.toString();
+        double valorDouble = Double.parseDouble(valor);
+        int valorInt = (int) valorDouble;
+        if (valor.equals("0")) {
+            String mensaje = "Disciplina deportiva no especificada";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        } else if (valorInt == disciplinaDeportiva1 || valorInt == disciplinaDeportiva2) {
+            String mensaje = "Las disciplinas escogidas deben ser diferentes";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        } else {
+            setDisciplinaDeportiva1(valorInt);
+        }
+    }
+
     //==========================================================================
     // Methods
     //==========================================================================
-    public void asignaIMCYGradoObesidad() {
-        calculaIMC();
-        calculaGradoObesidad();
-    }
-
-    public void calculaIMC() {
-        Deportista oDeportista = new Deportista();
-        this.imc = oDeportista.calculaIMC(this.peso, this.altura);
-    }
-
-    public void calculaGradoObesidad() {
-        Deportista oDeportista = new Deportista();
-        this.gradoObesidad = oDeportista.calculaGradoObesidad(this.imc);
-    }
-
     public void limpiaCasillas() {
         this.id = 0;
         getTipoIdentificacion();
@@ -442,19 +360,10 @@ public class beanDeportista implements Serializable {
         this.apellido2 = "";
         this.correoElectronico = "";
         this.log_estado = 1;
-        this.peso = 0f;
-        this.talla = "";
-        this.altura = 0.0f;
-        this.objetivoDeporte1 = "";
-        this.objetivoDeporte2 = "";
-        this.objetivoDeporte3 = "";
-        this.pago = 0;
         this.listaTelefono.clear();
         this.telefono1 = 0;
         this.telefono2 = 0;
         this.otrasSennas = "";
-        this.imc = 0;
-        this.gradoObesidad = "";
     }
 
     public void asignaDireccion() {
@@ -473,11 +382,10 @@ public class beanDeportista implements Serializable {
         }
     }
 
-    public void creaDeportista() throws SNMPExceptions, SQLException {
+    public void creaInstructor() throws SNMPExceptions, SQLException {
         this.mensajeExito = "";
         this.mensajeFallido = "";
 
-        this.pago = 1;
         this.log_estado = 1;
         java.util.Date date = new java.util.Date();
         java.sql.Date date2 = new java.sql.Date(date.getTime());
@@ -487,28 +395,25 @@ public class beanDeportista implements Serializable {
         this.codUsuario_Edita = this.id;
         this.fechaEdita = date2;
 
-        Deportista oDeportista = new Deportista(
-                this.peso, this.talla, this.altura,
-                this.objetivoDeporte1, this.objetivoDeporte2,
-                this.objetivoDeporte3, this.pago, this.id,
-                this.tipoIdentificacion, this.nombre, this.apellido1,
-                this.apellido2, this.correoElectronico, this.DisciplinaDeportiva,
+        Instructor oInstructor = new Instructor(
+                this.id, this.tipoIdentificacion, this.nombre, this.apellido1,
+                this.apellido2, this.correoElectronico,
                 this.log_estado, this.codUsuario_Registra, date2,
                 this.codUsuario_Edita, date2, this.oDireccion
         );
-        oDeportista.agregaTelefono(new Telefono(this.id, this.telefono1, 1, this.id, date2, 0, date2));
-        oDeportista.agregaTelefono(new Telefono(this.id, this.telefono2, 1, this.id, date2, 0, date2));
+        oInstructor.agregaTelefono(new Telefono(this.id, this.telefono1, 1, this.id, date2, 0, date2));
+        oInstructor.agregaTelefono(new Telefono(this.id, this.telefono2, 1, this.id, date2, 0, date2));
+        oInstructor.agregaDisciplinaDeportiva(new DisciplinaDeportiva(this.disciplinaDeportiva1));
+        oInstructor.agregaDisciplinaDeportiva(new DisciplinaDeportiva(this.disciplinaDeportiva2));
+        oInstructor.agregaDisciplinaDeportiva(new DisciplinaDeportiva(this.disciplinaDeportiva3));
 
-        DeportistaDB oDeportistaDB = new DeportistaDB();
+        InstructorDB oInstructorDB = new InstructorDB();
 
-        if (oDeportistaDB.consultarDeportista(this.id) == true) {
-            mensajeFallido = "Deportista ya registrado!";
-            Email oEmail = new Email();
-            oEmail.sendEmail(this.correoElectronico, oDeportista);
-            //throw new ValidatorException(new FacesMessage(mensajeExito));
+        if (oInstructorDB.consultarInstructor(this.id) == true) {
+            mensajeFallido = "Instructor ya registrado!";
         } else {
-            oDeportistaDB.insertarDeportista(oDeportista);
-            mensajeExito = "Deportista correctamente registrado!";
+            oInstructorDB.insertarInstructor(oInstructor);
+            mensajeExito = "Instructor correctamente registrado!";
             limpiaCasillas();
             //throw new ValidatorException(new FacesMessage(mensaje));
         }

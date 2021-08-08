@@ -19,7 +19,6 @@ public class Persona {
     private String apellido1;
     private String apellido2;
     private String correoElectronico;
-    private int DisciplinaDeportiva;
     private int log_estado;
     private int codUsuario_Registra;
     private Date fechaRegistra;
@@ -30,14 +29,13 @@ public class Persona {
     public Persona() {
     }
 
-    public Persona(int id, int tipoIdentificacion, String nombre, String apellido1, String apellido2, String correoElectronico, int DisciplinaDeportiva, int log_estado, int codUsuario_Registra, Date fechaRegistra, int codUsuario_Edita, Date fechaEdita, Direccion oDireccion) {
+    public Persona(int id, int tipoIdentificacion, String nombre, String apellido1, String apellido2, String correoElectronico, int log_estado, int codUsuario_Registra, Date fechaRegistra, int codUsuario_Edita, Date fechaEdita, Direccion oDireccion) {
         this.id = id;
         this.tipoIdentificacion = tipoIdentificacion;
         this.nombre = nombre;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
         this.correoElectronico = correoElectronico;
-        this.DisciplinaDeportiva = DisciplinaDeportiva;
         this.log_estado = log_estado;
         this.codUsuario_Registra = codUsuario_Registra;
         this.fechaRegistra = fechaRegistra;
@@ -92,14 +90,6 @@ public class Persona {
 
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
-    }
-
-    public int getDisciplinaDeportiva() {
-        return DisciplinaDeportiva;
-    }
-
-    public void setDisciplinaDeportiva(int DisciplinaDeportiva) {
-        this.DisciplinaDeportiva = DisciplinaDeportiva;
     }
 
     public int getLog_estado() {
