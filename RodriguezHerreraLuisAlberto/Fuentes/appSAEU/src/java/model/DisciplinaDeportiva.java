@@ -12,7 +12,7 @@ import java.sql.Date;
  * @author LARH96
  */
 public class DisciplinaDeportiva {
-    
+
     private int id;
     private String descripcion;
     private boolean log_estado;
@@ -97,5 +97,5 @@ public class DisciplinaDeportiva {
 
     public void setFechaEdita(Date fechaEdita) {
         this.fechaEdita = fechaEdita;
-    }    
+    }
 }

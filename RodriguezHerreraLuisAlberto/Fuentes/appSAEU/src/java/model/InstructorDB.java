@@ -159,7 +159,7 @@ public class InstructorDB {
                     + "from InstructorDisciplinaDeportiva idd, Instructor i, DisciplinaDeportiva d "
                     + "where i.log_estado = 1 AND d.log_estado = 1 AND i.id = idd.idInstructor AND idd.idDisciplinaDeportiva = d.id "
                     + "AND i.id = "
-                    + "'" + pId + "'" + ";";
+                    + "'" + pId + "'" + " order by idd.id;";
 
             ResultSet rsPA1 = accesoDatos.ejecutaSQLRetornaRS(select1);
             ResultSet rsPA2 = accesoDatos.ejecutaSQLRetornaRS(select2);
@@ -255,16 +255,48 @@ public class InstructorDB {
                     + "AND numero = " + "'" + pInstructorSinEditar.getListaTelefono().get(i).getNumero() + "';";
         }
 
+        int ultCampoDiscip = ultimoCampoDisciplinaDeportiva(pInstructor.getId());
+
         for (int i = 0; i < 3; i++) {
-            update
-                    += "UPDATE InstructorDisciplinaDeportiva "
-                    + "SET "
-                    + "idDisciplinaDeportiva = " + "'" + pInstructor.getListaDisciplinaDeportiva().get(i).getId() + "' "
-                    + "WHERE idInstructor = " + "'" + pInstructor.getId() + "' "
-                    + "AND idDisciplinaDeportiva = " + "'" + pInstructorSinEditar.getListaDisciplinaDeportiva().get(i).getId() + "';";
+
+            if (i == 2) {
+                update
+                        += "UPDATE InstructorDisciplinaDeportiva "
+                        + "SET "
+                        + "idDisciplinaDeportiva = " + "'" + pInstructor.getListaDisciplinaDeportiva().get(i).getId() + "' "
+                        + "WHERE idInstructor = " + "'" + pInstructor.getId() + "' "
+                        + "AND id = " + "'" + ultCampoDiscip + "' "
+                        + "AND idDisciplinaDeportiva = " + "'" + pInstructorSinEditar.getListaDisciplinaDeportiva().get(i).getId() + "';";
+            } else {
+                update
+                        += "UPDATE InstructorDisciplinaDeportiva "
+                        + "SET "
+                        + "idDisciplinaDeportiva = " + "'" + pInstructor.getListaDisciplinaDeportiva().get(i).getId() + "' "
+                        + "WHERE idInstructor = " + "'" + pInstructor.getId() + "' "
+                        + "AND idDisciplinaDeportiva = " + "'" + pInstructorSinEditar.getListaDisciplinaDeportiva().get(i).getId() + "';";
+            }
         }
 
         //Se ejecuta la sentencia SQL
         accesoDatos.ejecutaSQL(update);
+    }
+
+    public int ultimoCampoDisciplinaDeportiva(int pIdInstructor)
+            throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+        String update = "";
+        int resp = 0;
+
+        update
+                += "select max(id) as id from InstructorDisciplinaDeportiva where idInstructor = "
+                + pIdInstructor + ";";
+
+        ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(update);
+
+        while (rsPA.next()) {
+            resp = rsPA.getInt("id");
+        }
+
+        //Se ejecuta la sentencia SQL
+        return resp;
     }
 }

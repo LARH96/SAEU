@@ -71,7 +71,7 @@ public class beanInstructor implements Serializable {
      */
     public beanInstructor() {
     }
-    
+
     public boolean isModoEditarActivado() {
         return modoEditarActivado;
     }
@@ -379,7 +379,7 @@ public class beanInstructor implements Serializable {
         double valorDouble = Double.parseDouble(valor);
         int valorInt = (int) valorDouble;
         if (valor.equals("0")) {
-            String mensaje = "Disciplina deportiva no especificada";
+            String mensaje = "Disciplina deportiva 1 debe ser especificada";
             throw new ValidatorException(new FacesMessage(mensaje));
         } else if (valorInt == disciplinaDeportiva2 || valorInt == disciplinaDeportiva3) {
             String mensaje = "Las disciplinas escogidas deben ser diferentes";
@@ -395,13 +395,12 @@ public class beanInstructor implements Serializable {
         double valorDouble = Double.parseDouble(valor);
         int valorInt = (int) valorDouble;
         if (valor.equals("0")) {
-            String mensaje = "Disciplina deportiva no especificada";
-            throw new ValidatorException(new FacesMessage(mensaje));
+            setDisciplinaDeportiva2(valorInt);
         } else if (valorInt == disciplinaDeportiva1 || valorInt == disciplinaDeportiva3) {
             String mensaje = "Las disciplinas escogidas deben ser diferentes";
             throw new ValidatorException(new FacesMessage(mensaje));
         } else {
-            setDisciplinaDeportiva1(valorInt);
+            setDisciplinaDeportiva2(valorInt);
         }
     }
 
@@ -411,13 +410,12 @@ public class beanInstructor implements Serializable {
         double valorDouble = Double.parseDouble(valor);
         int valorInt = (int) valorDouble;
         if (valor.equals("0")) {
-            String mensaje = "Disciplina deportiva no especificada";
-            throw new ValidatorException(new FacesMessage(mensaje));
+            setDisciplinaDeportiva3(valorInt);
         } else if (valorInt == disciplinaDeportiva1 || valorInt == disciplinaDeportiva2) {
             String mensaje = "Las disciplinas escogidas deben ser diferentes";
             throw new ValidatorException(new FacesMessage(mensaje));
         } else {
-            setDisciplinaDeportiva1(valorInt);
+            setDisciplinaDeportiva3(valorInt);
         }
     }
 
@@ -426,6 +424,7 @@ public class beanInstructor implements Serializable {
     //==========================================================================
     public void limpiaCasillas() {
         modoEditarActivado = false;
+        this.idBuscar = 0;
         this.id = 0;
         getTipoIdentificacion();
         this.nombre = "";
@@ -469,7 +468,7 @@ public class beanInstructor implements Serializable {
         this.mensajeExito = "";
         this.mensajeFallido = "";
         InstructorDB oInstructorDB = new InstructorDB();
-        
+
         this.log_estado = 1;
         java.util.Date date = new java.util.Date();
         java.sql.Date date2 = new java.sql.Date(date.getTime());
@@ -498,8 +497,8 @@ public class beanInstructor implements Serializable {
                 mensajeFallido = "Instructor ya registrado!";
             } else {
                 oInstructorDB.insertarInstructor(oInstructor);
-                mensajeExito = "Instructor correctamente registrado!";
                 limpiaCasillas();
+                mensajeExito = "Instructor correctamente registrado!";
             }
         }
 
@@ -535,15 +534,15 @@ public class beanInstructor implements Serializable {
             this.obeanProvincias.setCod_canton(oInstructor.getoDireccion().getCanton());
             this.obeanProvincias.setCod_distrito(oInstructor.getoDireccion().getDistrito());
             this.obeanProvincias.setCod_barrio(oInstructor.getoDireccion().getBarrio());
-            
+
             //For posible update
             oInstructorSinEditar = oInstructor;
             oInstructorSinEditar.agregaTelefono(new Telefono(oInstructor.getListaTelefono().get(0).getNumero()));
             oInstructorSinEditar.agregaTelefono(new Telefono(oInstructor.getListaTelefono().get(1).getNumero()));
             oInstructorSinEditar.agregaDisciplinaDeportiva(new DisciplinaDeportiva(oInstructor.getListaDisciplinaDeportiva().get(0).getId()));
             oInstructorSinEditar.agregaDisciplinaDeportiva(new DisciplinaDeportiva(oInstructor.getListaDisciplinaDeportiva().get(1).getId()));
-            oInstructorSinEditar.agregaDisciplinaDeportiva(new DisciplinaDeportiva(oInstructor.getListaDisciplinaDeportiva().get(3).getId()));
-            
+            oInstructorSinEditar.agregaDisciplinaDeportiva(new DisciplinaDeportiva(oInstructor.getListaDisciplinaDeportiva().get(2).getId()));
+
             desabilitarAtrue();
         }
     }
