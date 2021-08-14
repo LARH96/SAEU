@@ -25,6 +25,8 @@ public class Deportista extends Persona {
     private int pago;
     private int DisciplinaDeportiva;
     private List<Telefono> listaTelefono = new ArrayList<Telefono>();
+    
+    private String pagoString;
 
     public Deportista() {
 
@@ -49,6 +51,19 @@ public class Deportista extends Persona {
         this.DisciplinaDeportiva = DisciplinaDeportiva;
     }
 
+    public Deportista(int id, int tipoIdentificacion, String nombre, String apellido1, String apellido2, String pago) {
+        super(id, tipoIdentificacion, nombre, apellido1, apellido2);
+        this.pagoString = pago;
+    }
+
+    public String getPagoString() {
+        return pagoString;
+    }
+
+    public void setPagoString(String pagoString) {
+        this.pagoString = pagoString;
+    }
+    
     public int getDisciplinaDeportiva() {
         return DisciplinaDeportiva;
     }

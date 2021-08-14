@@ -22,7 +22,11 @@ import model.DeportistaDB;
 import utilitario.ValidadorFormatos;
 import javax.faces.context.FacesContext;
 import dao.SNMPExceptions;
+import java.util.LinkedList;
+import javax.naming.NamingException;
 import model.Direccion;
+import model.Provincia;
+import model.ProvinciaDB;
 import utilitario.Email;
 
 /**
@@ -53,6 +57,7 @@ public class beanDeportista implements Serializable {
     private String objetivoDeporte3;
     private int pago;
     private List<Telefono> listaTelefono = new ArrayList<Telefono>();
+    private List<Deportista> listaDeportista = new ArrayList<Deportista>();
     private Direccion oDireccion = new Direccion();
     private String otrasSennas;
 
@@ -68,6 +73,20 @@ public class beanDeportista implements Serializable {
      * Creates a new instance of beanDeportista
      */
     public beanDeportista() {
+        
+    }
+
+    public LinkedList<Deportista> getListaDeportista() throws SNMPExceptions, SQLException {
+
+        LinkedList<Deportista> lista = new LinkedList<Deportista>();
+        DeportistaDB oDeportistaDB = new DeportistaDB();
+
+        lista = oDeportistaDB.moTodo();
+
+        LinkedList resultLista = new LinkedList();
+
+        resultLista = lista;
+        return resultLista;
     }
 
     public String getMensajeExito() {
@@ -512,5 +531,12 @@ public class beanDeportista implements Serializable {
             limpiaCasillas();
             //throw new ValidatorException(new FacesMessage(mensaje));
         }
+    }
+    
+    public void editarPagoDeportista(Deportista pDeportista) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
+    
+        DeportistaDB oDeportistaDB = new DeportistaDB();
+        oDeportistaDB.cambiarEstadoPagoDeportista(pDeportista.getId(), (pDeportista.getPagoString().equals("Pagado"))?0:1);
+        mensajeExito = "Registro almacenado correctamente";
     }
 }

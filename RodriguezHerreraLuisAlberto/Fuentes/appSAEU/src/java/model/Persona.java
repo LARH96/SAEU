@@ -44,6 +44,14 @@ public class Persona {
         this.oDireccion = oDireccion;
     }
 
+    public Persona(int id, int tipoIdentificacion, String nombre, String apellido1, String apellido2) {
+        this.id = id;
+        this.tipoIdentificacion = tipoIdentificacion;
+        this.nombre = nombre;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+    }
+
     public int getId() {
         return id;
     }

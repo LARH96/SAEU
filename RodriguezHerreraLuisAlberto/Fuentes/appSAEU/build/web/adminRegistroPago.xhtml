@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Registro pago deportista</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"></link>
+        <link rel="stylesheet" href="resources/css/estilos.css"></link>
+        <link rel="icon" type="image/png" href="./resources/img/favicon.PNG"></link>
+    </h:head>
+    <h:body>
+        <div class="container-fluid bg-secondary">
+            <div class="row justify-content-center align-items-center vh-100">
+                <div class="col-6 border border-secondary m-2">
+
+                    <div class="row justify-content-center align-items-center bg-dark border border-white">
+                        <div class="text-center text-white">
+                            <div class="row">
+                                <h6 class="m-2">Registro de pago Deportista</h6>
+                                <h:form>
+                                    <h:commandButton class="btn btn-primary m-1" value="Ayuda"
+                                                     actionListener="#{beanRouter.setPage('miscellaneusAyudaRegistroPago')}"></h:commandButton>
+                                    <h:commandButton value="Salir"
+                                                 actionListener="#{beanRouter.setPage('adminVacio')}"
+                                                 action="adminPrincipal.xhtml"
+                                                 class="btn btn-danger m-2"></h:commandButton>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h:form>
+                        <div class="row bg-light">
+                            <div class="col-md-10 ml-2">
+                                <div class="row">
+                                    <div class="datagrid">
+                                        <h:outputLabel style="color: red" value="#{beanDeportista.mensajeFallido}" class="tareaFallo"></h:outputLabel>
+                                        <h:dataTable var="act" value="#{beanDeportista.listaDeportista}" style="border: 1px solid #000;">
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Identificación"></h:outputText>
+                                                </f:facet>
+                                                <h:outputText value="#{act.id}"></h:outputText>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Nombre"></h:outputText>
+                                                </f:facet>
+                                                <h:outputText value="#{act.nombre}"></h:outputText>
+                                            </h:column> 
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Apellido 1"></h:outputText>
+                                                </f:facet>
+                                                <h:outputText value="#{act.apellido1}"></h:outputText>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Apellido 2"></h:outputText>
+                                                </f:facet>
+                                                <h:outputText value="#{act.apellido2}"></h:outputText>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Estado Pago"></h:outputText>
+                                                </f:facet>
+                                                <h:outputText value="#{act.pagoString}"></h:outputText>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Cambiar Estado Pago"></h:outputText>
+                                                </f:facet>
+                                                <h:commandButton class="btn btn-secondary" value="Cambiar"
+                                                                 actionListener="#{beanDeportista.editarPagoDeportista(act)}"></h:commandButton>
+                                            </h:column>
+                                        </h:dataTable>
+
+                                    </div>    
+                                </div>
+                            </div>
+                            <div class="row pl-5">
+                                <h:outputLabel class="tareaRealizadaCorrectamente" 
+                                               value="#{beanDeportista.mensajeExito}"></h:outputLabel>
+                            </div>
+                        </div>
+                    </h:form>
+
+
+                    <div class="row justify-content-center align-items-center bg-dark border border-white">
+                        <div class="text-center text-white">
+                            <div class="row">
+                                <nav>
+                                    <div class="">
+                                        <br></br>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    </h:body>
+</html>
+

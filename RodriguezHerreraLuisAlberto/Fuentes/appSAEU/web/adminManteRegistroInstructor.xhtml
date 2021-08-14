@@ -32,6 +32,10 @@
                                                      actionListener="#{beanInstructor.modoEditar()}"></h:commandButton>
                                     <h:commandButton class="btn btn-primary m-1" value="Ayuda"
                                                      action="miscellaneousAyudaMant.xhtml"></h:commandButton>
+                                    <h:commandButton value="Salir"
+                                                 actionListener="#{beanRouter.setPage('adminVacio')}"
+                                                 action="adminPrincipal.xhtml"
+                                                 class="btn btn-danger m-2"></h:commandButton>
                                 </h:form>
                             </div>
                         </div>

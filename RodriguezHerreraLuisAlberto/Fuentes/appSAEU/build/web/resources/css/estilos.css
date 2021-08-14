@@ -8,6 +8,10 @@ and open the template in the editor.
     Author     : LARH96
 */
 
+.datagrid table { border-collapse: collapse; text-align: center;} 
+.datagrid table td, .datagrid table th { padding: 3px 10px; border: 1px solid #000000;}
+.datagrid table thead th {background:black; color: white}
+
 .imgTipoUsuario{
     height: 150px;
     width: 160px

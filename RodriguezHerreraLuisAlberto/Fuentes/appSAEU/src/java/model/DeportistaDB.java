@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Iterator;
+import java.util.LinkedList;
+import javax.naming.NamingException;
 
 /**
  *
@@ -131,4 +133,65 @@ public class DeportistaDB {
 
     }
 
+    public LinkedList<Deportista> moTodo() throws SNMPExceptions, SQLException {
+        String select = "";
+        LinkedList<Deportista> listaDeportista = new LinkedList<Deportista>();
+
+        try {
+            //Se intancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //Se crea la sentencia de Busqueda
+            select
+                    = "SELECT id, idTipoIdentificacion, nombre, apellido1, "
+                    + "apellido2, pago FROM Deportista WHERE log_estado = 1";
+            //se ejecuta la sentencia sql
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            //se llama el array con los proyectos
+            while (rsPA.next()) {
+
+                int id = rsPA.getInt("id");
+                int idTipoIdentificacion = rsPA.getInt("idTipoIdentificacion");
+                String nombre = rsPA.getString("nombre");
+                String apellido1 = rsPA.getString("apellido1");
+                String apellido2 = rsPA.getString("apellido2");
+                int pago = rsPA.getInt("pago");
+
+                String pagoString = "";
+                //se construye el objeto
+                if (pago == 1) {
+                    pagoString = "Pagado";
+                } else {
+                    pagoString = "Pendiente";
+                }
+                Deportista oDeportista = new Deportista(id, idTipoIdentificacion, nombre, apellido1, apellido2, pagoString);
+
+                listaDeportista.add(oDeportista);
+            }
+            rsPA.close();//se cierra el ResultSeat.
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+        return listaDeportista;
+    }
+
+    public void cambiarEstadoPagoDeportista(int pIdDeportista, int pPagoCambiado)
+            throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+        String update = "";
+
+        update
+                += "UPDATE Deportista "
+                + "SET "
+                + "pago = " + "'" + pPagoCambiado + "' "
+                + "WHERE id = " + "'" + pIdDeportista + "';";
+
+        //Se ejecuta la sentencia SQL
+        accesoDatos.ejecutaSQL(update);
+    }
 }
