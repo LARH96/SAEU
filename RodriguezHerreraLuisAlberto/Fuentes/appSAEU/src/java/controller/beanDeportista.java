@@ -59,6 +59,7 @@ public class beanDeportista implements Serializable {
     private List<Telefono> listaTelefono = new ArrayList<Telefono>();
     private List<Deportista> listaDeportista = new ArrayList<Deportista>();
     private Direccion oDireccion = new Direccion();
+    private beanDisciplinaDeportiva obeanDisciplinaDeportiva = new beanDisciplinaDeportiva();
     private String otrasSennas;
 
     //extra
@@ -68,12 +69,29 @@ public class beanDeportista implements Serializable {
     private String gradoObesidad;
     String mensajeExito;
     String mensajeFallido;
+    private beanProvincias obeanProvincias = new beanProvincias();
 
     /**
      * Creates a new instance of beanDeportista
      */
     public beanDeportista() {
-        
+
+    }
+
+    public beanDisciplinaDeportiva getObeanDisciplinaDeportiva() {
+        return obeanDisciplinaDeportiva;
+    }
+
+    public void setObeanDisciplinaDeportiva(beanDisciplinaDeportiva obeanDisciplinaDeportiva) {
+        this.obeanDisciplinaDeportiva = obeanDisciplinaDeportiva;
+    }
+
+    public beanProvincias getObeanProvincias() {
+        return obeanProvincias;
+    }
+
+    public void setObeanProvincias(beanProvincias obeanProvincias) {
+        this.obeanProvincias = obeanProvincias;
     }
 
     public LinkedList<Deportista> getListaDeportista() throws SNMPExceptions, SQLException {
@@ -435,6 +453,25 @@ public class beanDeportista implements Serializable {
         }
     }
 
+    public void validaTelefono1(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException {
+        String valor = value.toString();
+        double valorDouble = Double.parseDouble(valor);
+        int valorInt = (int) valorDouble;
+        this.setTelefono1(valorInt);
+    }
+    
+    public void validaTelefono2(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException {
+        String valor = value.toString();
+        double valorDouble = Double.parseDouble(valor);
+        int valorInt = (int) valorDouble;
+        if (valorInt == this.telefono1) {
+            String mensaje = "Debe indicar teléfonos diferentes";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        }
+    }
+
     //==========================================================================
     // Methods
     //==========================================================================
@@ -474,6 +511,11 @@ public class beanDeportista implements Serializable {
         this.otrasSennas = "";
         this.imc = 0;
         this.gradoObesidad = "";
+        obeanProvincias.setCod_provincia(0);
+        obeanProvincias.setCod_canton(0);
+        obeanProvincias.setCod_distrito(0);
+        obeanProvincias.setCod_barrio(0);
+        obeanDisciplinaDeportiva.setId(0);
     }
 
     public void asignaDireccion() {
@@ -492,7 +534,8 @@ public class beanDeportista implements Serializable {
         }
     }
 
-    public void creaDeportista() throws SNMPExceptions, SQLException {
+    public String creaDeportista() throws SNMPExceptions, SQLException {
+        String paginaADevolver = "";
         this.mensajeExito = "";
         this.mensajeFallido = "";
 
@@ -529,14 +572,24 @@ public class beanDeportista implements Serializable {
             oDeportistaDB.insertarDeportista(oDeportista);
             mensajeExito = "Registro almacenado correctamente";
             limpiaCasillas();
+            paginaADevolver = "miscellaneusEnvioEmailAutoRegistroAtleta.xhtml";
             //throw new ValidatorException(new FacesMessage(mensaje));
         }
+        return paginaADevolver;
     }
-    
-    public void editarPagoDeportista(Deportista pDeportista) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
-    
+
+    public void editarPagoDeportista(Deportista pDeportista) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+
         DeportistaDB oDeportistaDB = new DeportistaDB();
-        oDeportistaDB.cambiarEstadoPagoDeportista(pDeportista.getId(), (pDeportista.getPagoString().equals("Pagado"))?0:1);
+        oDeportistaDB.cambiarEstadoPagoDeportista(pDeportista.getId(), (pDeportista.getPagoString().equals("Pagado")) ? 0 : 1);
         mensajeExito = "Registro almacenado correctamente";
+    }
+
+    public String volverEnvioEmail() {
+        String devolverPagina = "securityLoginSportPlayer.xhtml";
+
+        mensajeExito = "";
+
+        return devolverPagina;
     }
 }
