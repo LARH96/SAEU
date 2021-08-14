@@ -81,7 +81,7 @@ Deportista&Entrenador:
 
 Administrador:
 	-Todas las anteriores //*TODO: pensar diseño de como le aparece a admin xq el menú NO lo hice q eran todas pero de consulta*
-50%	-Mantenimiento registra instructor por disciplina deportiva(pueden ser varias)  						//IMPORTANTE
+100%	-Mantenimiento registra instructor por disciplina deportiva(pueden ser varias)  						//IMPORTANTE
 		//Nuevo, Guardar, Buscar, Editar, Ayuda y Salir & “Registro almacenado correctamente”
 	-Mantenimiento asignación de deportista por instructor(Solo dejan asignar a los q ya pagaron)                       		//IMPORTANTE
 		//Nuevo, Guardar, Buscar, Editar, Ayuda y Salir & “Registro almacenado correctamente”
