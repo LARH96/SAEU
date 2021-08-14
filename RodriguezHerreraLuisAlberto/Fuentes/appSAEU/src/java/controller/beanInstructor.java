@@ -498,7 +498,7 @@ public class beanInstructor implements Serializable {
             } else {
                 oInstructorDB.insertarInstructor(oInstructor);
                 limpiaCasillas();
-                mensajeExito = "Instructor correctamente registrado!";
+                mensajeExito = "Registro almacenado correctamente";
             }
         }
 

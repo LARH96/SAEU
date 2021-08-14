@@ -508,7 +508,7 @@ public class beanDeportista implements Serializable {
             //throw new ValidatorException(new FacesMessage(mensajeExito));
         } else {
             oDeportistaDB.insertarDeportista(oDeportista);
-            mensajeExito = "Deportista correctamente registrado!";
+            mensajeExito = "Registro almacenado correctamente";
             limpiaCasillas();
             //throw new ValidatorException(new FacesMessage(mensaje));
         }
