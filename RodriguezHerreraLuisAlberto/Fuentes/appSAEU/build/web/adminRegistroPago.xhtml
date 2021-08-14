@@ -18,7 +18,14 @@
                         <div class="text-center text-white">
                             <div class="row">
                                 <h6 class="m-2">Registro de pago Deportista</h6>
-                                
+                                <h:form>
+                                    <h:commandButton class="btn btn-primary m-1" value="Ayuda"
+                                                     actionListener="#{beanRouter.setPage('miscellaneusAyudaRegistroPago')}"></h:commandButton>
+                                    <h:commandButton value="Salir"
+                                                     actionListener="#{beanRouter.setPage('adminVacio')}"
+                                                     action="adminPrincipal.xhtml"
+                                                     class="btn btn-danger m-2"></h:commandButton>
+                                </h:form>
                             </div>
                         </div>
                     </div>
@@ -84,14 +91,7 @@
                         <div class="text-center text-white">
                             <div class="row">
                                 <nav>
-                                    <h:form>
-                                    <h:commandButton class="btn btn-primary m-1" value="Ayuda"
-                                                     actionListener="#{beanRouter.setPage('miscellaneusAyudaRegistroPago')}"></h:commandButton>
-                                    <h:commandButton value="Salir"
-                                                 actionListener="#{beanRouter.setPage('adminVacio')}"
-                                                 action="adminPrincipal.xhtml"
-                                                 class="btn btn-danger m-2"></h:commandButton>
-                                </h:form>
+                                    <br></br>
                                 </nav>
                             </div>
                         </div>

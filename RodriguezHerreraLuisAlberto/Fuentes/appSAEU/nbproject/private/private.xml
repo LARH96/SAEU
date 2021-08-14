@@ -2,6 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/U/Programación%20en%20ambiente%20Web%20I%20(Backend%20with%20JEE)/Proyect/SAEU/RodriguezHerreraLuisAlberto/Fuentes/appSAEU/src/java/controller/beanAsignacionDeportistaAInstructor.java</file>
+            <file>file:/D:/U/Programación%20en%20ambiente%20Web%20I%20(Backend%20with%20JEE)/Proyect/SAEU/RodriguezHerreraLuisAlberto/Fuentes/appSAEU/src/java/controller/beanInstructor.java</file>
+            <file>file:/D:/U/Programación%20en%20ambiente%20Web%20I%20(Backend%20with%20JEE)/Proyect/SAEU/RodriguezHerreraLuisAlberto/Fuentes/appSAEU/src/java/model/InstructorDB.java</file>
+            <file>file:/D:/U/Programación%20en%20ambiente%20Web%20I%20(Backend%20with%20JEE)/Proyect/SAEU/RodriguezHerreraLuisAlberto/Fuentes/appSAEU/web/adminManteAsigDeportistaPorInstructor.xhtml</file>
+        </group>
     </open-files>
 </project-private>
