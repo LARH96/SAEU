@@ -5,9 +5,16 @@
  */
 package controller;
 
+import dao.SNMPExceptions;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import model.AsignacionDeportistaAInstructor;
+import model.AsignacionDeportistaAInstructorDB;
+import model.DisciplinaDeportiva;
 
 /**
  *
@@ -17,18 +24,55 @@ import java.io.Serializable;
 @SessionScoped
 public class beanAsignacionDeportistaAInstructor implements Serializable {
 
+    private int idInstructor;
     private beanProvincias obeanProvincias = new beanProvincias();
     private beanDisciplinaDeportiva obeanDisciplinaDeportiva = new beanDisciplinaDeportiva();
-    private boolean desabilitar = false;
+    private List<AsignacionDeportistaAInstructor> listaAsignacionDeportistaAInstructor = new ArrayList<AsignacionDeportistaAInstructor>();
+    private boolean desabilitar = true;
     private String mensajeExito;
     private String mensajeFallido;
     private boolean modoEditarActivado = false;
+    private beanInstructor obeanInstructor = new beanInstructor();
+    private int idBuscar;
     
     /**
      * Creates a new instance of beanAsignacionDeportistaAInstructor
      */
-    public beanAsignacionDeportistaAInstructor() {
+    public beanAsignacionDeportistaAInstructor() throws SNMPExceptions, SQLException {
+        cargaTabla();
     }
+
+    public int getIdInstructor() {
+        return idInstructor;
+    }
+
+    public void setIdInstructor(int idInstructor) {
+        this.idInstructor = idInstructor;
+    }
+
+    public beanInstructor getObeanInstructor() {
+        return obeanInstructor;
+    }
+
+    public void setObeanInstructor(beanInstructor obeanInstructor) {
+        this.obeanInstructor = obeanInstructor;
+    }
+
+    public List<AsignacionDeportistaAInstructor> getListaAsignacionDeportistaAInstructor() {
+        return listaAsignacionDeportistaAInstructor;
+    }
+
+    public void setListaAsignacionDeportistaAInstructor(List<AsignacionDeportistaAInstructor> listaAsignacionDeportistaAInstructor) {
+        this.listaAsignacionDeportistaAInstructor = listaAsignacionDeportistaAInstructor;
+    }
+
+    public int getIdBuscar() {
+        return idBuscar;
+    }
+
+    public void setIdBuscar(int idBuscar) {
+        this.idBuscar = idBuscar;
+    }   
 
     public boolean isModoEditarActivado() {
         return modoEditarActivado;
@@ -79,7 +123,7 @@ public class beanAsignacionDeportistaAInstructor implements Serializable {
     }
     
     public void desabilitarAFalse() {
-        desabilitar = false;
+        this.desabilitar = false;
     }
 
     public void modoEditar() {
@@ -91,9 +135,10 @@ public class beanAsignacionDeportistaAInstructor implements Serializable {
         desabilitar = true;
     }
     
-    public void limpiaCasillas() {
+    public void limpiaCasillas() throws SNMPExceptions, SQLException {
+        idBuscar = 0;
         modoEditarActivado = false;
-        desabilitarAFalse();
+        desabilitarAtrue();
         obeanDisciplinaDeportiva.setId(0);
         mensajeExito = "";
         mensajeFallido = "";
@@ -101,5 +146,16 @@ public class beanAsignacionDeportistaAInstructor implements Serializable {
         obeanProvincias.setCod_canton(0);
         obeanProvincias.setCod_distrito(0);
         obeanProvincias.setCod_barrio(0);
+        cargaTabla();
+    }
+    public void cargaTabla() throws SNMPExceptions, SQLException{
+        AsignacionDeportistaAInstructorDB oAsignacionDeportistaAInstructorDB = new AsignacionDeportistaAInstructorDB();
+        listaAsignacionDeportistaAInstructor = oAsignacionDeportistaAInstructorDB.moTodoInstructorAsignado();
+    }
+    
+    public String devuelveNombreInstructor(AsignacionDeportistaAInstructor pAsignacionDeportistaAInstructor){
+        return pAsignacionDeportistaAInstructor.getNombreInstructor() + " " +
+                pAsignacionDeportistaAInstructor.getApellido1Instructor() + " " +
+                pAsignacionDeportistaAInstructor.getApellido2Instructor();
     }
 }

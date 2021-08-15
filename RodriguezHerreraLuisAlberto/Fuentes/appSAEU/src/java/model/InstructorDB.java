@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import javax.naming.NamingException;
 
 /**
@@ -298,5 +299,48 @@ public class InstructorDB {
 
         //Se ejecuta la sentencia SQL
         return resp;
+    }
+
+    public LinkedList<Instructor> moTodoInstrConDisciplDeportist(int pIdDeportista) throws SNMPExceptions, SQLException {
+        String select = "";
+        LinkedList<Instructor> listaInstructor = new LinkedList<Instructor>();
+
+        try {
+            //Se intancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //Se crea la sentencia de Busqueda
+            select
+                    = "SELECT i.id, i.nombre, i.apellido1, i.apellido2 "
+                    + "FROM Instructor i INNER JOIN InstructorDisciplinaDeportiva idd ON i.id = idd.idInstructor "
+                    + "WHERE idd.idDisciplinaDeportiva = (SELECT idDisciplinaDeportiva                                            \n"
+                    + "                                   FROM Deportista"
+                    + "                                   WHERE id = '" + pIdDeportista + "');";
+            //se ejecuta la sentencia sql
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            //se llama el array con los proyectos
+            while (rsPA.next()) {
+                int id = rsPA.getInt("id");
+                int tipoIdentificacion = 0;
+                String nombre = rsPA.getString("nombre");
+                String apellido1 = rsPA.getString("apellido1");
+                String apellido2 = rsPA.getString("apellido2");
+
+                //se construye el objeto.
+                Instructor oInstructor = new Instructor(id, tipoIdentificacion, nombre, apellido1, apellido2);
+
+                listaInstructor.add(oInstructor);
+            }
+            rsPA.close();//se cierra el ResultSeat.
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+        return listaInstructor;
     }
 }

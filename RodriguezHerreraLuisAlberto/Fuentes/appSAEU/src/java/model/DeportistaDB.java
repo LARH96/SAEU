@@ -181,63 +181,6 @@ public class DeportistaDB {
         return listaDeportista;
     }
 
-    public LinkedList<Deportista> moTodoInstructorAsignado()
-            throws SNMPExceptions, SQLException {
-        String select = "";
-        LinkedList<Deportista> listaDeportista = new LinkedList<Deportista>();
-
-        try {
-            //Se intancia la clase de acceso a datos
-            AccesoDatos accesoDatos = new AccesoDatos();
-
-            //Se crea la sentencia de Busqueda
-            select
-                    = "SELECT d.id AS idDeportista, d.nombre AS nombreDeportista, "
-                    + "d.apellido1 AS apellido1Deportista, d.apellido2 AS apellido2Deportista, "
-                    + "i.id AS idInstructor, i.nombre AS nombreInstructor, "
-                    + "i.apellido1 AS apellido1Instructor, i.apellido2 AS apellido2Instructor "
-                    + "FROM AsignDeportistaPorInstructor adi, Deportista d, Instructor i "
-                    + "WHERE adi.log_estado = 1";
-            //se ejecuta la sentencia sql
-            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
-            //se llama el array con los proyectos
-            while (rsPA.next()) {
-
-                int idDeportista = rsPA.getInt("idDeportista");
-                String nombreDeportista = rsPA.getString("nombreDeportista");
-                String apellido1Deportista = rsPA.getString("apellido1Deportista");
-                String apellido2Deportista = rsPA.getString("apellido2Deportista");
-                int idInstructor = rsPA.getInt("idInstructor");
-                String nombreInstructor = rsPA.getString("nombreInstructor");
-                String apellido1Instructor = rsPA.getString("apellido1Instructor");
-                String apellido2Instructor = rsPA.getString("apellido2Instructor");
-
-                /*
-                String pagoString = "";
-                //se construye el objeto
-                if () {
-                    pagoString = "Pagado";
-                } else {
-                    pagoString = "Pendiente";
-                }
-                 */
-                Deportista oDeportista = new Deportista();
-
-                listaDeportista.add(oDeportista);
-            }
-            rsPA.close();//se cierra el ResultSeat.
-
-        } catch (SQLException e) {
-            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
-                    e.getMessage(), e.getErrorCode());
-        } catch (Exception e) {
-            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
-        } finally {
-
-        }
-        return listaDeportista;
-    }
-
     public void cambiarEstadoPagoDeportista(int pIdDeportista, int pPagoCambiado)
             throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         String update = "";

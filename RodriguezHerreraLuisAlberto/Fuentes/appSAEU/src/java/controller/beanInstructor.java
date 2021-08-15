@@ -21,6 +21,7 @@ import javax.faces.validator.ValidatorException;
 import javax.naming.NamingException;
 import model.Direccion;
 import model.DisciplinaDeportiva;
+import model.DisciplinaDeportivaDB;
 import model.Instructor;
 import model.InstructorDB;
 import model.Telefono;
@@ -65,13 +66,23 @@ public class beanInstructor implements Serializable {
     private boolean desabilitarId;
     private boolean modoEditarActivado = false;
     private Instructor oInstructorSinEditar = null;
-
+    
     /**
      * Creates a new instance of beanDeportista
      */
     public beanInstructor() {
     }
-
+    
+    public List<Instructor> getListaInstrConDisciplDeportist(int idDeportista) throws SNMPExceptions, SQLException {
+        List<Instructor> listaInstrConDisciplDeportist = new ArrayList<Instructor>();
+        InstructorDB oInstructorDB = new InstructorDB();
+        listaInstrConDisciplDeportist = oInstructorDB.moTodoInstrConDisciplDeportist(idDeportista);
+        if (listaInstrConDisciplDeportist.isEmpty()) {
+            listaInstrConDisciplDeportist.add(new Instructor(0, 0, "No hay disponible", "", ""));
+        }
+        return listaInstrConDisciplDeportist;
+    }
+    
     public boolean isModoEditarActivado() {
         return modoEditarActivado;
     }

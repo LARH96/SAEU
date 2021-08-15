@@ -11,11 +11,15 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import javax.faces.model.SelectItem;
 import model.DisciplinaDeportiva;
 import model.DisciplinaDeportivaDB;
+import model.Instructor;
 
 /**
  *
@@ -39,7 +43,8 @@ public class beanDisciplinaDeportiva implements Serializable {
      */
     public beanDisciplinaDeportiva() {
     }
-
+    
+    
     public int getId() {
         return id;
     }
