@@ -45,6 +45,10 @@
                                 <div class="row campoRequerido">
                                     <h:messages/>
                                 </div>
+                                <div class="row pl-5">
+                                    <h:outputLabel class="tareaRealizadaCorrectamente" 
+                                                   value="#{beanAsignacionDeportistaAInstructor.mensajeExito}"></h:outputLabel>
+                                </div>
                                 <div class="row">
                                     <div class="datagrid">                        
                                         <strong><h:outputLabel value="Filtrar por deporte: "></h:outputLabel></strong>
@@ -133,10 +137,6 @@
 
                                     </div>    
                                 </div>
-                            </div>
-                            <div class="row pl-5">
-                                <h:outputLabel class="tareaRealizadaCorrectamente" 
-                                               value="#{beanAsignacionDeportistaAInstructor.mensajeExito}"></h:outputLabel>
                             </div>
                         </div>
                     </h:form>
