@@ -20,33 +20,36 @@
                     </div>
 
                     <!-- Formulario -->
-                    <h:form>
-                        <!-- Iniciar sesión en SAEU -->
-                        <div class="row justify-content-center align-items-center bg-dark">
-                            <div class="text-center text-white">
-                                <br></br>
-                                <h6>Iniciar sesión <strong>Deportista</strong></h6>
-                                <!-- Label para "Nombre de usuario o contraseña incorrecta"-->
-                                <h:outputLabel></h:outputLabel>
-                            </div>
+                    <!-- Iniciar sesión en SAEU -->
+                    <div class="row justify-content-center align-items-center bg-dark">
+                        <div class="text-center text-white">
+                            <br></br>
+                            <h6>Iniciar sesión <strong>Deportista</strong></h6>
+                            <h:form>
+                                <h:commandButton value="Volver" class="btn btn-danger " action="index.xhtml"></h:commandButton>
+                            </h:form>
                         </div>
-
+                    </div>
+                    <h:form>
                         <div class="row bg-light">
                             <!-- img -->
                             <div class="col-md-10">
                                 <br></br>
+                                <!-- "Nombre de usuario o contraseña incorrecta"-->
+                                <h:outputLabel value="#{beanLogin.mensajeFallido}" class="tareaFallo"></h:outputLabel>
 
                                 <div class="form-group row">
-                                    <label for="user" class="col-sm-5 col-form-label">Nombre usuario o correo electrónico</label>
+                                    <label for="user" class="col-sm-5 col-form-label">Nombre usuario</label>
                                     <div class="col-sm-7">
-                                        <h:inputText></h:inputText>
+                                        <h:inputText value="#{beanLogin.usuarioIngresado}"
+                                                     validator="#{beanLogin.validaUsuario}"></h:inputText>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label for="password" class="col-sm-5 col-form-label">Contraseña:</label>
                                     <div class="col-sm-7">
-                                        <h:inputSecret></h:inputSecret>
+                                        <h:inputSecret validator="#{beanLogin.validaContrasenna}"></h:inputSecret>
                                         <h:commandLink value="Olvidaste la contraseña?" 
                                                        action="securityRecuperarContrasenna.xhtml" 
                                                        class="text-primary m-2"></h:commandLink> 
@@ -59,9 +62,7 @@
 
                         <div class="row justify-content-center align-items-center bg-dark">
                             <div class="text-center text-white">
-                                <h:commandButton value="Volver" action="index.xhtml" 
-                                                 class="btn btn-danger m-2"></h:commandButton>
-                                <h:commandButton value="Ingresar" action="sportPlayerPrincipal.xhtml" class="btn btn-success m-2"></h:commandButton>
+                                <h:commandButton value="Ingresar" action="#{beanLogin.autenticarDeportista()}" class="btn btn-success m-2"></h:commandButton>
                             </div>
                         </div>
 
@@ -70,7 +71,6 @@
                         <div class="row justify-content-center align-items-center bg-dark border border-white">
                             <div class="text-center text-white">
                                 <div class="row">
-                                    <h:outputLabel></h:outputLabel>
                                     <h6 class="mr-2">¿Nuevo en SAEU?</h6>
                                     <h:commandLink value="Crear una cuenta" action="sportPlayerAutoregistro.xhtml" class="text-info"></h:commandLink>    
                                 </div>

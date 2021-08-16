@@ -14,6 +14,10 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.naming.NamingException;
 import model.AsignacionDeportistaAInstructor;
 import model.AsignacionDeportistaAInstructorDB;
@@ -176,6 +180,18 @@ public class beanAsignacionDeportistaAInstructor implements Serializable {
 
     public void setObeanDisciplinaDeportiva(beanDisciplinaDeportiva obeanDisciplinaDeportiva) {
         this.obeanDisciplinaDeportiva = obeanDisciplinaDeportiva;
+    }
+    
+    public void validaIdInstructor(FacesContext context, UIComponent component, Object value)throws ValidatorException {
+        String valor = value.toString();
+        double valorDouble = Double.parseDouble(valor);
+        int valorInt = (int) valorDouble;
+        if (valor.equals("0")) {
+            String mensaje = "No existe Instructor dispinible";
+            throw new ValidatorException(new FacesMessage(mensaje));
+        } else {
+            setIdInstructor(valorInt);
+        }
     }
 
     public void desabilitarAFalse() {

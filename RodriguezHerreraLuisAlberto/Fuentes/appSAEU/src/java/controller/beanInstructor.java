@@ -77,9 +77,12 @@ public class beanInstructor implements Serializable {
     }
 
     public List<SelectItem> getListaInstrConDisciplDeportist(int idDeportista) throws SNMPExceptions, SQLException {
+        
         List<Instructor> listaInstrConDisciplDeportist = new ArrayList<Instructor>();
+        
         InstructorDB oInstructorDB = new InstructorDB();
         listaInstrConDisciplDeportist = oInstructorDB.moTodoInstrConDisciplDeportist(idDeportista);
+        
         if (listaInstrConDisciplDeportist.isEmpty()) {
             listaInstrConDisciplDeportist.add(new Instructor(0, 0, "No hay disponible", "", ""));
         }

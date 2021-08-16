@@ -116,7 +116,8 @@
                                                     <h:outputText value="Instructores que tienen disciplina del deportista"></h:outputText>
                                                 </f:facet>
                                                 <h:selectOneMenu label="listaInstructores" value="#{beanAsignacionDeportistaAInstructor.obeanInstructor.id}" id="listaInstructores"
-                                                                 disabled="#{beanAsignacionDeportistaAInstructor.desabilitar}">
+                                                                 disabled="#{beanAsignacionDeportistaAInstructor.desabilitar}"
+                                                                 validator="#{beanAsignacionDeportistaAInstructor.validaIdInstructor}">
                                                     <f:selectItems value="#{beanAsignacionDeportistaAInstructor.obeanInstructor.getListaInstrConDisciplDeportist(act.idDeportista)}"/>
                                                 </h:selectOneMenu>
                                             </h:column>
