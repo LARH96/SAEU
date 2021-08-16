@@ -102,6 +102,7 @@ public class beanLogin implements Serializable {
     }
 
     public String autenticarDeportista() {
+        mensajeFallido = "";
         String pagina = "";
 
         try {
@@ -122,13 +123,14 @@ public class beanLogin implements Serializable {
     }
 
     public String autenticarInstructor() {
+        mensajeFallido = "";
         String pagina = "";
 
         try {
             Usuario1 = usuarioDB.Autenticar(this.getUsuarioIngresado(), this.getPassword());
 
             if (Usuario1 != null && Usuario1.getTipoPerfil() == 3) {
-                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", UsuarioIngresado);
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", Usuario1);
                 //FacesContext.getCurrentInstance().getExternalContext().redirect("trainerPrincipal.xhtml");
                 pagina = "trainerPrincipal.xhtml";
             } else {
@@ -142,13 +144,14 @@ public class beanLogin implements Serializable {
     }
 
     public String autenticarAdmin() {
+        mensajeFallido = "";
         String pagina = "";
 
         try {
             Usuario1 = usuarioDB.Autenticar(this.getUsuarioIngresado(), this.getPassword());
 
-            if (Usuario1 != null && Usuario1.getTipoPerfil() == 2) {
-                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", UsuarioIngresado);
+            if (Usuario1 != null && Usuario1.getTipoPerfil() == 1) {
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", Usuario1);
                 //FacesContext.getCurrentInstance().getExternalContext().redirect("trainerPrincipal.xhtml");
                 pagina = "adminPrincipal.xhtml";
             } else {
@@ -162,7 +165,8 @@ public class beanLogin implements Serializable {
     }
 
     public void validaAccesoPaginaPorPerfil(int idPerfilPagina) throws IOException {
-
+        UsuarioIngresado = "";
+        Password = "";
         beanObtenerDatosSesion obeanObtenerDatosSesion = new beanObtenerDatosSesion();
         obeanObtenerDatosSesion.consultarSesion();
 

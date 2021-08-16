@@ -6,6 +6,7 @@
 package controller;
 
 import dao.SNMPExceptions;
+import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -50,7 +51,7 @@ public class beanAsignacionDeportistaAInstructor implements Serializable {
     /**
      * Creates a new instance of beanAsignacionDeportistaAInstructor
      */
-    public beanAsignacionDeportistaAInstructor() throws SNMPExceptions, SQLException {
+    public beanAsignacionDeportistaAInstructor() throws SNMPExceptions, SQLException, IOException {
         cargaTabla();
     }
 
@@ -207,7 +208,7 @@ public class beanAsignacionDeportistaAInstructor implements Serializable {
         desabilitar = true;
     }
 
-    public void limpiaCasillas() throws SNMPExceptions, SQLException {
+    public void limpiaCasillas() throws SNMPExceptions, SQLException, IOException {
         idBuscar = 0;
         modoEditarActivado = false;
         desabilitarAtrue();
@@ -221,7 +222,9 @@ public class beanAsignacionDeportistaAInstructor implements Serializable {
         cargaTabla();
     }
 
-    public void cargaTabla() throws SNMPExceptions, SQLException {
+    public void cargaTabla() throws SNMPExceptions, SQLException, IOException {
+        beanLogin obeanLogin = new beanLogin();
+        obeanLogin.validaAccesoPaginaPorPerfil(1);
         AsignacionDeportistaAInstructorDB oAsignacionDeportistaAInstructorDB = new AsignacionDeportistaAInstructorDB();
         listaAsignacionDeportistaAInstructor = oAsignacionDeportistaAInstructorDB.moTodoInstructorAsignado(
                 obeanDisciplinaDeportiva.getId(), (int)obeanProvincias.cod_provincia, (int)obeanProvincias.cod_canton,
@@ -235,7 +238,7 @@ public class beanAsignacionDeportistaAInstructor implements Serializable {
     }
 
     public void guardarInstructorDelDeportista(int pIdDeportista, int pIdInstructor) throws SNMPExceptions,
-            SQLException, NamingException, ClassNotFoundException {
+            SQLException, NamingException, ClassNotFoundException, IOException {
         this.mensajeExito = "";
         this.mensajeFallido = "";
         AsignacionDeportistaAInstructorDB oAsignacionDeportistaAInstructorDB = new AsignacionDeportistaAInstructorDB();
