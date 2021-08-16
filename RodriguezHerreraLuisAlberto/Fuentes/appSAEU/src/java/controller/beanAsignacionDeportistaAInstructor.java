@@ -17,11 +17,6 @@ import java.util.List;
 import javax.naming.NamingException;
 import model.AsignacionDeportistaAInstructor;
 import model.AsignacionDeportistaAInstructorDB;
-import model.DisciplinaDeportiva;
-import model.Instructor;
-import model.InstructorDB;
-import model.Telefono;
-
 /**
  *
  * @author LARH96
@@ -212,7 +207,9 @@ public class beanAsignacionDeportistaAInstructor implements Serializable {
 
     public void cargaTabla() throws SNMPExceptions, SQLException {
         AsignacionDeportistaAInstructorDB oAsignacionDeportistaAInstructorDB = new AsignacionDeportistaAInstructorDB();
-        listaAsignacionDeportistaAInstructor = oAsignacionDeportistaAInstructorDB.moTodoInstructorAsignado();
+        listaAsignacionDeportistaAInstructor = oAsignacionDeportistaAInstructorDB.moTodoInstructorAsignado(
+                obeanDisciplinaDeportiva.getId(), (int)obeanProvincias.cod_provincia, (int)obeanProvincias.cod_canton,
+                (int)obeanProvincias.cod_distrito, (int)obeanProvincias.cod_barrio, this.idBuscar);
     }
 
     public String devuelveNombreInstructor(AsignacionDeportistaAInstructor pAsignacionDeportistaAInstructor) {

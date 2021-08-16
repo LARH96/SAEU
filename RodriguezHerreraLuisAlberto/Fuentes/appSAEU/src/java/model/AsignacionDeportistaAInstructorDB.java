@@ -28,7 +28,10 @@ public class AsignacionDeportistaAInstructorDB {
         accesoDatos.setDbConn(conn);
     }
 
-    public LinkedList<AsignacionDeportistaAInstructor> moTodoInstructorAsignado() throws SNMPExceptions, SQLException {
+    public LinkedList<AsignacionDeportistaAInstructor> moTodoInstructorAsignado(
+            int pIdDisciplinaDeportiva, int pIdProvincia, int pIdCanton,
+            int pIdDistrito, int pIdBarrio, int pIdDeportista)
+            throws SNMPExceptions, SQLException {
         String selectDeportistas = "";
         String selectParaComparar = "";
         int idAComparar = 0;
@@ -39,11 +42,47 @@ public class AsignacionDeportistaAInstructorDB {
         try {
             //Se intancia la clase de acceso a datos
             AccesoDatos accesoDatos = new AccesoDatos();
-
-            //se ejecuta la sentencia sql
-            selectDeportistas
-                    = "SELECT id, nombre, apellido1, apellido2 "
-                    + "FROM Deportista";
+            if (pIdDeportista != 0) {
+                selectDeportistas
+                        = "SELECT id, nombre, apellido1, apellido2 "
+                        + "FROM Deportista "
+                        + "WHERE id = " + pIdDeportista + ";";
+            } else if (pIdDisciplinaDeportiva == 0
+                    && pIdProvincia == 0
+                    && pIdCanton == 0
+                    && pIdDistrito == 0
+                    && pIdBarrio == 0) {
+                selectDeportistas
+                        = "SELECT id, nombre, apellido1, apellido2 "
+                        + "FROM Deportista";
+            } else if (pIdDisciplinaDeportiva != 0
+                    && pIdProvincia == 0
+                    && pIdCanton == 0
+                    && pIdDistrito == 0
+                    && pIdBarrio == 0) {
+                selectDeportistas
+                        = "SELECT id, nombre, apellido1, apellido2 "
+                        + "FROM Deportista "
+                        + "WHERE idDisciplinaDeportiva = " + pIdDisciplinaDeportiva + ";";
+            } else if (pIdDisciplinaDeportiva != 0
+                    && pIdProvincia != 0) {
+                selectDeportistas
+                        = "SELECT dep.id, dep.nombre, dep.apellido1, dep.apellido2 "
+                        + "FROM Deportista dep INNER JOIN Direccion dir ON dep.id = dir.id "
+                        + "WHERE idDisciplinaDeportiva = " + pIdDisciplinaDeportiva + " "
+                        + "AND dir.idProvincia = " + pIdProvincia + " "
+                        + "AND dir.idCanton = " + pIdCanton + " "
+                        + "AND dir.idDistrito = " + pIdDistrito + " "
+                        + "AND dir.idBarrio = " + pIdBarrio + " ";
+            } else if (pIdProvincia != 0) {
+                selectDeportistas
+                        = "SELECT dep.id, dep.nombre, dep.apellido1, dep.apellido2 "
+                        + "FROM Deportista dep INNER JOIN Direccion dir ON dep.id = dir.id "
+                        + "WHERE "
+                        + "dir.idCanton = " + pIdCanton + " "
+                        + "AND dir.idDistrito = " + pIdDistrito + " "
+                        + "AND dir.idBarrio = " + pIdBarrio + " ";
+            }
 
             ResultSet rsPA1 = accesoDatos.ejecutaSQLRetornaRS(selectDeportistas);
 
@@ -113,7 +152,7 @@ public class AsignacionDeportistaAInstructorDB {
         }
         return listaAsignacionDeportistaAInstructor;
     }
-    
+
     public void editarInstructor(int pIdDeportista, int pIdInstructor)
             throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         String update = "";
@@ -126,7 +165,7 @@ public class AsignacionDeportistaAInstructorDB {
         //Se ejecuta la sentencia SQL
         accesoDatos.ejecutaSQL(update);
     }
-    
+
     public boolean consultarExistencia(int pIdDeportista)
             throws SNMPExceptions, SQLException {
 
@@ -161,7 +200,7 @@ public class AsignacionDeportistaAInstructorDB {
         }
 
     }
-    
+
     public void insertar(AsignacionDeportistaAInstructor pAsignacionDeportistaAInstructor)
             throws SNMPExceptions, SQLException {
         String strSQL;
@@ -171,8 +210,8 @@ public class AsignacionDeportistaAInstructorDB {
             strSQL
                     = "INSERT INTO AsignDeportistaPorInstructor(idInstructor, idDeportista, log_estado, "
                     + "codUsuario_Registra, fechaRegistra, codUsuario_Edita, fechaEdita) VALUES "
-                    + "(" + "'" + pAsignacionDeportistaAInstructor.getIdInstructor()+ "'" + ","
-                    + "'" + pAsignacionDeportistaAInstructor.getIdDeportista()+ "'" + ","
+                    + "(" + "'" + pAsignacionDeportistaAInstructor.getIdInstructor() + "'" + ","
+                    + "'" + pAsignacionDeportistaAInstructor.getIdDeportista() + "'" + ","
                     + "'" + pAsignacionDeportistaAInstructor.getLog_estado() + "'" + ","
                     + "'" + pAsignacionDeportistaAInstructor.getCodUsuario_Registra() + "'" + ","
                     + "'" + pAsignacionDeportistaAInstructor.getFechaRegistra() + "'" + ","

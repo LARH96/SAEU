@@ -25,11 +25,11 @@
                                                      ></h:commandButton>
                                     <h:inputText value="#{beanAsignacionDeportistaAInstructor.idBuscar}"></h:inputText>
                                     <h:commandButton class="btn btn-primary m-1" value="Buscar" 
-                                                     actionListener="#{beanInstructor.buscarInstructor()}"></h:commandButton>
+                                                     actionListener="#{beanAsignacionDeportistaAInstructor.cargaTabla()}"></h:commandButton>
                                     <h:commandButton class="btn btn-primary m-1" value="Editar"
                                                      actionListener="#{beanAsignacionDeportistaAInstructor.modoEditar()}"></h:commandButton>
                                     <h:commandButton class="btn btn-primary m-1" value="Ayuda"
-                                                     action="miscellaneousAyudaMant.xhtml"></h:commandButton>
+                                                     action="miscellaneousAyudaManteAsignaInstrADeportista.xhtml"></h:commandButton>
                                     <h:commandButton value="Salir"
                                                      actionListener="#{beanRouter.setPage('adminVacio')}"
                                                      action="adminPrincipal.xhtml"
@@ -49,7 +49,8 @@
                                     <div class="datagrid">                        
                                         <strong><h:outputLabel value="Filtrar por deporte: "></h:outputLabel></strong>
                                         <h:selectOneMenu label="disciplinaDeportiva" value="#{beanAsignacionDeportistaAInstructor.obeanDisciplinaDeportiva.id}"
-                                                         id="disciplinaDeportiva"> 		    
+                                                         id="disciplinaDeportiva"
+                                                         onchange="submit()">
                                             <f:selectItems value="#{beanDisciplinaDeportiva.listaDisciplinaDeportiva}"/>
                                         </h:selectOneMenu>
                                         <br></br>
@@ -76,6 +77,8 @@
                                         <h:selectOneMenu label="bar" value="#{beanAsignacionDeportistaAInstructor.obeanProvincias.cod_barrio}" id="bar">
                                             <f:selectItems value="#{beanAsignacionDeportistaAInstructor.obeanProvincias.listaBar}"/>
                                         </h:selectOneMenu>
+                                        <h:commandButton class="btn btn-secondary" value="Filtrar"
+                                                         actionListener="#{beanAsignacionDeportistaAInstructor.cargaTabla()}"></h:commandButton>
                                         <h:outputLabel style="color: red" value="#{beanAsignacionDeportistaAInstructor.mensajeFallido}" class="tareaFallo"></h:outputLabel>
                                         <h:dataTable var="act" value="#{beanAsignacionDeportistaAInstructor.listaAsignacionDeportistaAInstructor}">
                                             <h:column>
