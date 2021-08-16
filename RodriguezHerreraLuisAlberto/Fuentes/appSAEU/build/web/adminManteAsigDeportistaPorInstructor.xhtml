@@ -112,18 +112,18 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Instructores que tienen disciplina del deportista"></h:outputText>
                                                 </f:facet>
-                                                <h:selectOneMenu label="dis" value="#{beanAsignacionDeportistaAInstructor.idInstructor}" id="dis"
+                                                <h:selectOneMenu label="listaInstructores" value="#{beanAsignacionDeportistaAInstructor.obeanInstructor.id}" id="listaInstructores"
                                                                  disabled="#{beanAsignacionDeportistaAInstructor.desabilitar}">
                                                     <f:selectItems value="#{beanAsignacionDeportistaAInstructor.obeanInstructor.getListaInstrConDisciplDeportist(act.idDeportista)}"/>
                                                 </h:selectOneMenu>
                                             </h:column>
                                             <h:column>
-
                                                 <f:facet name="header">
                                                     <h:outputText value="Cambiar Instructor"></h:outputText>
                                                 </f:facet>
                                                 <h:commandButton class="btn btn-secondary" value="Guardar"
-                                                                 actionListener="#{beanDeportista.editarPagoDeportista(act)}"></h:commandButton>
+                                                                 disabled="#{beanAsignacionDeportistaAInstructor.desabilitar}"
+                                                                 actionListener="#{beanAsignacionDeportistaAInstructor.guardarInstructorDelDeportista(act.idDeportista, beanAsignacionDeportistaAInstructor.obeanInstructor.id)}"></h:commandButton>
                                             </h:column>
                                         </h:dataTable>
 

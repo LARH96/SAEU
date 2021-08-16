@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.sql.Date;
+
 /**
  *
  * @author LARH96
@@ -19,6 +21,12 @@ public class AsignacionDeportistaAInstructor {
     private String nombreInstructor;
     private String apellido1Instructor;
     private String apellido2Instructor;
+    
+    private int log_estado;
+    private int codUsuario_Registra;
+    private Date fechaRegistra;
+    private int codUsuario_Edita;
+    private Date fechaEdita;
 
     public AsignacionDeportistaAInstructor(int idDeportista, String nombreDeportista, String apellido1Deportista, String apellido2Deportista, int idInstructor, String nombreInstructor, String apellido1Instructor, String apellido2Instructor) {
         this.idDeportista = idDeportista;
@@ -29,6 +37,56 @@ public class AsignacionDeportistaAInstructor {
         this.nombreInstructor = nombreInstructor;
         this.apellido1Instructor = apellido1Instructor;
         this.apellido2Instructor = apellido2Instructor;
+    }
+
+    public AsignacionDeportistaAInstructor(int idDeportista, int idInstructor, int log_estado, int codUsuario_Registra, Date fechaRegistra, int codUsuario_Edita, Date fechaEdita) {
+        this.idDeportista = idDeportista;
+        this.idInstructor = idInstructor;
+        this.log_estado = log_estado;
+        this.codUsuario_Registra = codUsuario_Registra;
+        this.fechaRegistra = fechaRegistra;
+        this.codUsuario_Edita = codUsuario_Edita;
+        this.fechaEdita = fechaEdita;
+    }
+
+    public int getLog_estado() {
+        return log_estado;
+    }
+
+    public void setLog_estado(int log_estado) {
+        this.log_estado = log_estado;
+    }
+
+    public int getCodUsuario_Registra() {
+        return codUsuario_Registra;
+    }
+
+    public void setCodUsuario_Registra(int codUsuario_Registra) {
+        this.codUsuario_Registra = codUsuario_Registra;
+    }
+
+    public Date getFechaRegistra() {
+        return fechaRegistra;
+    }
+
+    public void setFechaRegistra(Date fechaRegistra) {
+        this.fechaRegistra = fechaRegistra;
+    }
+
+    public int getCodUsuario_Edita() {
+        return codUsuario_Edita;
+    }
+
+    public void setCodUsuario_Edita(int codUsuario_Edita) {
+        this.codUsuario_Edita = codUsuario_Edita;
+    }
+
+    public Date getFechaEdita() {
+        return fechaEdita;
+    }
+
+    public void setFechaEdita(Date fechaEdita) {
+        this.fechaEdita = fechaEdita;
     }
     
     public int getIdDeportista() {

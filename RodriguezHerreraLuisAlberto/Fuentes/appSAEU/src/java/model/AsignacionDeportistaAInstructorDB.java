@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+import javax.naming.NamingException;
+
 /**
  *
  * @author LARH96
@@ -66,6 +68,7 @@ public class AsignacionDeportistaAInstructorDB {
                         + "WHERE adi.log_estado = 1 "
                         + "AND adi.idDeportista = " + "'" + idAComparar + "';";
                 ResultSet rsPA2 = accesoDatos.ejecutaSQLRetornaRS(selectParaComparar);
+                existe = false;
                 if (rsPA2.next()) {
                     existe = true;
                 }
@@ -109,5 +112,82 @@ public class AsignacionDeportistaAInstructorDB {
 
         }
         return listaAsignacionDeportistaAInstructor;
+    }
+    
+    public void editarInstructor(int pIdDeportista, int pIdInstructor)
+            throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+        String update = "";
+
+        update
+                += "UPDATE AsignDeportistaPorInstructor "
+                + "SET idInstructor = " + "'" + pIdInstructor + "'"
+                + "WHERE idDeportista = " + "'" + pIdDeportista + "';";
+
+        //Se ejecuta la sentencia SQL
+        accesoDatos.ejecutaSQL(update);
+    }
+    
+    public boolean consultarExistencia(int pIdDeportista)
+            throws SNMPExceptions, SQLException {
+
+        boolean existe = false;
+        String select = "";
+        try {
+            //Se intancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //Se crea la sentencia de Busqueda
+            select = "select * from AsignDeportistaPorInstructor where idDeportista= " + pIdDeportista;
+
+            //se ejecuta la sentencia sql
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            //se llama el array con los proyectos
+            if (rsPA.next()) {
+
+                existe = true;
+            }
+
+            rsPA.close();
+
+            return existe;
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+
+    }
+    
+    public void insertar(AsignacionDeportistaAInstructor pAsignacionDeportistaAInstructor)
+            throws SNMPExceptions, SQLException {
+        String strSQL;
+
+        try {
+            //Inserta direccion del instructor
+            strSQL
+                    = "INSERT INTO AsignDeportistaPorInstructor(idInstructor, idDeportista, log_estado, "
+                    + "codUsuario_Registra, fechaRegistra, codUsuario_Edita, fechaEdita) VALUES "
+                    + "(" + "'" + pAsignacionDeportistaAInstructor.getIdInstructor()+ "'" + ","
+                    + "'" + pAsignacionDeportistaAInstructor.getIdDeportista()+ "'" + ","
+                    + "'" + pAsignacionDeportistaAInstructor.getLog_estado() + "'" + ","
+                    + "'" + pAsignacionDeportistaAInstructor.getCodUsuario_Registra() + "'" + ","
+                    + "'" + pAsignacionDeportistaAInstructor.getFechaRegistra() + "'" + ","
+                    + "'" + pAsignacionDeportistaAInstructor.getCodUsuario_Edita() + "'" + ","
+                    + "'" + pAsignacionDeportistaAInstructor.getFechaEdita() + "'" + ");";
+
+            //Se ejecuta la sentencia SQL
+            accesoDatos.ejecutaSQL(strSQL);
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
     }
 }
