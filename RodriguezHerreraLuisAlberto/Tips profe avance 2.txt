@@ -1,8 +1,0 @@
-ventanas deben tener ayuda
-
-filtrado para asignar instructor al deportista
-provincia
-canton
-disciplina
-
-Reportes se puede en jasperReports o con reportes de excel
